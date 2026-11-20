@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matematika EDU</title>
+<style>
+:root{--bg:#f3f8f4;--card:#fff;--line:#dcebdf;--text:#1b2e23;--mute:#5f7a6a;--acc:#1f8a4c;--acc-d:#166a3a;--soft:#e6f3ea}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+.w{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:25px;font-weight:700;margin:8px 0 16px;color:var(--acc-d)}
+h2{font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)}
+.c{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 2px 10px #1f8a4c0d}
+input,select{width:100%;padding:13px 14px;margin:5px 0;border:1.5px solid var(--line);border-radius:12px;font-size:16px;background:#fbfefc;color:var(--text);outline:none;font-family:inherit}
+input:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 3px #1f8a4c20}
+button{background:var(--acc);color:#fff;border:0;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:600;margin:6px 6px 0 0;font-family:inherit;cursor:pointer}
+button:active{background:var(--acc-d)}
+button.g{background:var(--soft);color:var(--acc-d)}
+button.r{background:#fff;color:#c0392b;border:1.5px solid #f2d2cd}
+.t{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.t button{border-radius:999px;margin:0}
+.row{border-top:1px solid var(--line);padding:12px 0;font-size:14px}
+.row:first-of-type{border-top:0}
+.ok{color:var(--acc);font-weight:600}.no{color:#c0392b}
+.big{font-size:26px;letter-spacing:3px;font-weight:700}
+.v{position:relative;padding-top:56.25%;background:#000;border-radius:14px;overflow:hidden}
+.v iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+a{color:var(--acc);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+small{color:var(--mute)}
+</style></head><body><div class="w" id="app"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const sb=supabase.createClient("https://xhwzmzvrnfnrfvfcydbd.supabase.co","sb_publishable_f61-IFzOxM17Yp1K1yF8lg_H4HGOZD5");
+const app=document.getElementById('app');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ytId=u=>{u=(u||'').trim();const m=u.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(u)?u:null)};
+const gen=()=>{const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<8;i++)s+=a[Math.floor(Math.random()*a.length)];return s};
+const fmt=d=>d?new Date(d).toLocaleString('uz'):'';
+let tab='videos',D={};
+
+function route(){location.hash==='#admin'?admin():student()}
+window.onhashchange=route;
+
+/* ---------- O'QUVCHI ---------- */
+function student(){
+  const cur=sessionStorage.getItem('cur');
+  if(cur){const v=JSON.parse(cur);
+    app.innerHTML=`<h1>${esc(v.t)}</h1><div class="c"><div class="v"><iframe src="https://www.youtube-nocookie.com/embed/${v.y}?rel=0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>
+    <p><small>Bu kod bir martalik edi. Sahifani yopsangiz, qayta ko'rish uchun yangi kod kerak bo'ladi.</small></p>
+    <button class="g" onclick="sessionStorage.removeItem('cur');student()">Chiqish</button></div>`;return}
+  app.innerHTML=`<h1 style="margin-top:40px">Matematika EDU</h1><div class="c"><h2>Videoni ochish uchun kodni kiriting</h2>
+  <input id="code" placeholder="Ustozdan olgan kodni kiriting" autocapitalize="characters">
+  <button onclick="redeem()">Ko'rish</button><p id="msg" class="no"></p></div>
+  <p><small><a href="#admin">Ustoz kirishi</a></small></p>`;
+}
+async function redeem(){
+  const code=document.getElementById('code').value.trim();
+  const {data,error}=await sb.rpc('redeem_code',{p_code:code});
+  if(error||!data||!data.length){document.getElementById('msg').textContent="Kod noto'g'ri yoki ishlatilgan.";return}
+  sessionStorage.setItem('cur',JSON.stringify({t:data[0].vtitle,y:data[0].vyid}));student();
+}
+
+/* ---------- ADMIN ---------- */
+async function admin(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){
+    app.innerHTML=`<h1>Ustoz kabineti</h1><div class="c"><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Parol">
+    <button onclick="login()">Kirish</button><p id="msg" class="no"></p></div><a href="#">← Orqaga</a>`;return}
+  await load();render();
+}
+async function login(){
+  const {error}=await sb.auth.signInWithPassword({email:em.value.trim(),password:pw.value});
+  if(error){msg.textContent="Email yoki parol xato";return}admin();
+}
+async function logout(){await sb.auth.signOut();admin()}
+async function load(){
+  const [f,v,c,l]=await Promise.all([
+    sb.from('folders').select('*').order('created_at'),
+    sb.from('videos').select('*').order('created_at'),
+    sb.from('access_codes').select('*').order('created_at',{ascending:false}),
+    sb.from('views_log').select('*').order('started_at',{ascending:false})]);
+  D={f:f.data||[],v:v.data||[],c:c.data||[],l:l.data||[]};
+}
+const vt=id=>(D.v.find(x=>x.id===id)||{}).title||'?';
+function render(){
+  const tabs=[['videos','Videolar'],['codes','Kodlar'],['stats','Statistika'],['acc','Hisob']];
+  let h=`<h1>Ustoz kabineti</h1><div class="t">${tabs.map(t=>`<button class="${tab===t[0]?'':'g'}" onclick="tab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>`;
+  if(tab==='videos'){
+    h+=`<div class="c"><h2>Yangi papka</h2><input id="fn" placeholder="Papka nomi (masalan: Algebra 9-sinf)"><button onclick="addFolder()">Papka qo'shish</button></div>
+    <div class="c"><h2>Video qo'shish</h2><input id="vtt" placeholder="Video nomi"><input id="vl" placeholder="YouTube havolasi"><select id="vf"><option value="">Papkasiz</option>${D.f.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button onclick="addVideo()">Qo'shish</button></div>`;
+    const groups=[...D.f.map(f=>[f.id,f.name]),['','Papkasiz']];
+    groups.forEach(([fid,fname])=>{const vs=D.v.filter(v=>(v.folder_id||'')===fid);if(!vs.length&&!fid)return;
+      h+=`<div class="c"><h2>📁 ${esc(fname)} ${fid?`<button class="r" style="padding:4px 10px;float:right;margin:0" onclick="delFolder('${fid}')">✕</button>`:''}</h2>`+
+      (vs.length?vs.map(v=>`<div class="row"><b>${esc(v.title)}</b><br><button onclick="mkCode('${v.id}')">+ Kod</button><button class="g" onclick="repl('${v.id}')">Almashtirish</button><button class="r" onclick="delVideo('${v.id}')">O'chirish</button></div>`).join(''):'<small>Bo\'sh</small>')+`</div>`});
+  }
+  if(tab==='codes'){
+    h+=`<div class="c"><h2>Kodlar</h2>`+(D.c.length?D.c.map(c=>`<div class="row"><span class="big" style="font-size:18px">${c.code}</span> <span class="${c.used?'no':'ok'}">${c.used?'ishlatilgan '+fmt(c.used_at):'ishlatilmagan'}</span><br>${esc(vt(c.video_id))}${c.student_name?' · '+esc(c.student_name):''}<br><button class="g" onclick="delCode('${c.id}')">O'chirish</button></div>`).join(''):'<small>Hali kod yo\'q. Videolar bo\'limida "+ Kod" bosing.</small>')+`</div>`;
+  }
+  if(tab==='stats'){
+    h+=`<div class="c"><h2>Kim nimani ko'rgan</h2>`+(D.l.length?D.l.map(l=>`<div class="row"><b>${esc(l.student_name||'Ismsiz')}</b> — ${esc(vt(l.video_id))}<br><small>${fmt(l.started_at)}</small></div>`).join(''):'<small>Hali ko\'rish yo\'q.</small>')+`</div>
+    <div class="c"><h2>Videolar bo'yicha</h2>${D.v.map(v=>`<div class="row">${esc(v.title)}: <b>${D.l.filter(l=>l.video_id===v.id).length}</b> marta</div>`).join('')}</div>`;
+  }
+  if(tab==='acc'){
+    h+=`<div class="c"><h2>Login (email) o'zgartirish</h2><input id="ne" type="email" placeholder="Yangi email"><button onclick="upd({email:ne.value})">Saqlash</button></div>
+    <div class="c"><h2>Parol o'zgartirish</h2><input id="np" type="password" placeholder="Yangi parol (8+ belgi)"><button onclick="upd({password:np.value})">Saqlash</button></div>
+    <button class="r" onclick="logout()">Chiqish</button>`;
+  }
+  app.innerHTML=h+`<p><a href="#">Talaba sahifasi</a></p>`;
+}
+async function act(p){const {error}=await p;if(error)alert('Xato: '+error.message);await load();render()}
+function addFolder(){if(!fn.value.trim())return;act(sb.from('folders').insert({name:fn.value.trim()}))}
+function delFolder(id){if(confirm("Papka o'chirilsinmi? Videolar papkasiz qoladi."))act(sb.from('folders').delete().eq('id',id))}
+function addVideo(){const y=ytId(vl.value);if(!vtt.value.trim()||!y){alert("Nom va to'g'ri YouTube havolasini kiriting");return}
+  act(sb.from('videos').insert({title:vtt.value.trim(),youtube_id:y,folder_id:vf.value||null}))}
+function repl(id){const u=prompt("Yangi YouTube havolasi:");const y=ytId(u);if(!y){alert("Havola noto'g'ri");return}act(sb.from('videos').update({youtube_id:y}).eq('id',id))}
+function delVideo(id){if(confirm("Video o'chirilsinmi?"))act(sb.from('videos').delete().eq('id',id))}
+async function mkCode(vid){const n=prompt("O'quvchi ismi (ixtiyoriy):")??null;if(n===null&&!confirm("Ismsiz kod yaratilsinmi?"))return;
+  const code=gen();const {error}=await sb.from('access_codes').insert({video_id:vid,code,student_name:n||null});
+  if(error){alert('Xato: '+error.message);return}await load();tab='codes';render();alert('Kod: '+code)}
+function delCode(id){act(sb.from('access_codes').delete().eq('id',id))}
+async function upd(o){const {error}=await sb.auth.updateUser(o);alert(error?'Xato: '+error.message:'Saqlandi')}
+route();
+</script></body></html>

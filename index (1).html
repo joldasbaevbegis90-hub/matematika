@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matematika EDU</title>
+<style>
+:root{--bg:#f3f8f4;--card:#fff;--line:#dcebdf;--text:#1b2e23;--mute:#5f7a6a;--acc:#1f8a4c;--acc-d:#166a3a;--soft:#e6f3ea}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+.w{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:25px;font-weight:700;margin:8px 0 16px;color:var(--acc-d)}
+h2{font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)}
+.c{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 2px 10px #1f8a4c0d}
+input,select,textarea{width:100%;padding:13px 14px;margin:5px 0;border:1.5px solid var(--line);border-radius:12px;font-size:16px;background:#fbfefc;color:var(--text);outline:none;font-family:inherit}
+textarea{min-height:150px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px #1f8a4c20}
+button{background:var(--acc);color:#fff;border:0;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:600;margin:6px 6px 0 0;font-family:inherit;cursor:pointer}
+button:active{background:var(--acc-d)}
+button.g{background:var(--soft);color:var(--acc-d)}
+button.r{background:#fff;color:#c0392b;border:1.5px solid #f2d2cd}
+a.btn{display:inline-block;background:var(--acc);color:#fff;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:600;margin:6px 6px 0 0}
+a.btn:hover{text-decoration:none;background:var(--acc-d)}
+a.btn.g{background:var(--soft);color:var(--acc-d)}
+.t{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.t button{border-radius:999px;margin:0}
+.row{border-top:1px solid var(--line);padding:12px 0;font-size:14px}
+.row:first-of-type{border-top:0}
+.ok{color:var(--acc);font-weight:600}.no{color:#c0392b}
+.big{font-size:26px;letter-spacing:3px;font-weight:700}
+.v{position:relative;padding-top:56.25%;background:#000;border-radius:14px;overflow:hidden}
+.v iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+a{color:var(--acc);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+small{color:var(--mute)}
+.op{display:block;padding:10px 12px;margin:6px 0;border:1.5px solid var(--line);border-radius:12px;cursor:pointer}.op:has(input:checked){border-color:var(--acc);background:var(--soft)}.op input{width:auto;margin:0 6px 0 0;padding:0}.good{background:#d7f0e0!important;border-color:var(--acc)!important}.wrongo{background:#fdeceb!important;border-color:#e6a69f!important}.bad{border-color:#e6a69f}
+.qt{font-size:16px;line-height:1.7}
+.ot{margin:8px 0 2px;line-height:2}
+.oi{display:inline-block;margin:0 26px 0 0;padding:0 6px;border-radius:8px;border:1.5px solid transparent}
+.ob{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 2px}
+.ob button{width:46px;height:46px;border-radius:50%;padding:0;margin:0;background:#fff;color:var(--acc-d);border:2px solid #b9d6c3;font-size:16px;font-weight:700}
+.ob button.sel{background:var(--acc);color:#fff;border-color:var(--acc)}
+.ob button.good{background:#d7f0e0;color:#166a3a;border-color:var(--acc)}
+.ob button.wrongo{background:#fdeceb;color:#c0392b;border-color:#e6a69f}
+.ob button:disabled{opacity:1;cursor:default}
+.tb{position:sticky;top:8px;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px}
+.tb button{margin:0;font-size:12px;padding:9px 11px;white-space:nowrap}
+.tb small{white-space:nowrap}
+.katex{font-size:1.08em}
+.epv{margin-top:12px;padding:10px 12px;border:1.5px dashed var(--line);border-radius:12px;background:#fbfefc}
+.st3{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.sx{flex:1;min-width:92px;text-align:center;padding:12px 8px;border-radius:14px;background:var(--soft);border:1.5px solid var(--line)}
+.sx b{display:block;font-size:26px;line-height:1.2}
+.sx small{display:block;font-size:13px}
+.sx.g1{background:#d7f0e0;border-color:var(--acc)}.sx.g1 b{color:var(--acc-d)}
+.sx.r1{background:#fdeceb;border-color:#e6a69f}.sx.r1 b{color:#c0392b}
+.mdl{position:fixed;inset:0;z-index:50;background:#0b1a1166;display:flex;align-items:center;justify-content:center;padding:16px}
+.mb{background:#fff;border-radius:18px;padding:22px;max-width:380px;width:100%;box-shadow:0 10px 40px #0003}
+.av{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--acc);color:#fff;font-weight:700;margin-right:10px;vertical-align:middle}
+.wl{display:inline-block;min-width:34px;text-align:center;padding:2px 9px;margin:2px 4px 2px 0;border-radius:999px;background:#fdeceb;color:#c0392b;font-weight:600;font-size:13px}.pb{height:8px;background:var(--soft);border-radius:99px;overflow:hidden;margin:6px 0 2px}.pb i{display:block;height:100%}img.av{object-fit:cover;background:var(--soft)}</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script></head><body><div class="w" id="app"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SBU="https://xhwzmzvrnfnrfvfcydbd.supabase.co",SBK="sb_publishable_f61-IFzOxM17Yp1K1yF8lg_H4HGOZD5";
+const sb=supabase.createClient(SBU,SBK);
+const app=document.getElementById('app');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ytId=u=>{u=(u||'').trim();const m=u.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(u)?u:null)};
+const gen=()=>{const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<8;i++)s+=a[Math.floor(Math.random()*a.length)];return s};
+const fmt=d=>d?new Date(d).toLocaleString('uz'):'';
+let tab='videos',D={};
+
+function route(){location.hash==='#admin'?admin():student()}
+window.onhashchange=route;
+
+/* ---------- USTOZ BILAN BOG'LANISH ---------- */
+let CT=null;
+async function getContacts(){if(CT)return CT;try{const {data}=await sb.rpc('get_contacts');CT=(data&&typeof data==='object')?data:{}}catch(e){CT={}}return CT}
+function contactHtml(ct){const b=[];
+  if(ct&&ct.tg){const u=String(ct.tg).trim().replace(/^https?:\/\/t\.me\//,'').replace(/^@/,'');if(u)b.push('<a class="btn" href="https://t.me/'+encodeURIComponent(u)+'" target="_blank" rel="noopener">✈️ Telegram</a>')}
+  if(ct&&ct.phone){const p=String(ct.phone).trim();const d=p.replace(/[^\d+]/g,'');if(d)b.push('<a class="btn g" href="tel:'+esc(d)+'">📞 '+esc(p)+'</a>')}
+  return b.length?'<div class="c"><h2>Ustoz bilan bog\'lanish</h2>'+b.join('')+'</div>':''}
+
+/* ---------- O'QUVCHI ---------- */
+function student(){
+  const cur=sessionStorage.getItem('cur');
+  if(cur){const v=JSON.parse(cur);
+    app.innerHTML=`<h1>${esc(v.t)}</h1><div class="c"><div class="v"><iframe src="https://www.youtube-nocookie.com/embed/${v.y}?rel=0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>
+    <p><small>${v.f?"Bu videoni istalgan vaqt qayta ko'rishingiz mumkin.":"Bu kod bir martalik edi. Sahifani yopsangiz, qayta ko'rish uchun yangi kod kerak bo'ladi."}</small></p>
+    <button class="g" onclick="sessionStorage.removeItem('cur');student()">Chiqish</button></div><div id="ex"></div>`;extras(v);return}
+  app.innerHTML=`<h1 style="margin-top:40px">Matematika EDU</h1><div class="c"><h2>Videoni ochish uchun kodni kiriting</h2>
+  <input id="code" placeholder="Ustozdan olgan kodni kiriting" autocapitalize="characters">
+  <button onclick="redeem()">Ko'rish</button><p id="msg" class="no"></p></div>
+  <p><small><a href="#admin">Ustoz kirishi</a></small></p><div id="me"></div>`;home();
+}
+async function redeem(){
+  const code=document.getElementById('code').value.trim();
+  const {data,error}=await sb.rpc('redeem_code',{p_code:code,p_sid:(S()||{}).s||null,p_pin:(S()||{}).p||null});
+  if(error||!data||!data.length){document.getElementById('msg').textContent="Kod noto'g'ri yoki ishlatilgan.";return}
+  sessionStorage.setItem('cur',JSON.stringify({t:data[0].vtitle,y:data[0].vyid,i:data[0].vid,n:data[0].sname}));student();
+}
+
+/* ---------- ADMIN ---------- */
+async function admin(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){
+    app.innerHTML=`<h1>Ustoz kabineti</h1><div class="c"><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Parol">
+    <button onclick="login()">Kirish</button><p id="msg" class="no"></p></div><a href="#">← Orqaga</a>`;return}
+  await load();render();
+}
+async function login(){
+  const {error}=await sb.auth.signInWithPassword({email:em.value.trim(),password:pw.value});
+  if(error){msg.textContent="Email yoki parol xato";return}admin();
+}
+async function logout(){await sb.auth.signOut();admin()}
+async function load(){
+  const [f,v,c,l,fl]=await Promise.all([
+    sb.from('folders').select('*').order('created_at'),
+    sb.from('videos').select('*').order('created_at'),
+    sb.from('access_codes').select('*').order('created_at',{ascending:false}),
+    sb.from('views_log').select('*').order('started_at',{ascending:false}),
+    sb.from('files').select('*').order('created_at',{ascending:false})]);
+  const [ss,te,qq,rr,se]=await Promise.all([sb.from('students').select('*').order('created_at',{ascending:false}),sb.from('tests').select('*').order('created_at',{ascending:false}),sb.from('questions').select('*').order('created_at',{ascending:false}),sb.from('test_results').select('*').order('created_at',{ascending:false}),sb.from('settings').select('*')]);D={ss:ss.data||[],te:te.data||[],qq:qq.data||[],rr:rr.data||[],f:f.data||[],v:v.data||[],c:c.data||[],l:l.data||[],fl:fl.data||[],set:Object.fromEntries((se.data||[]).map(x=>[x.key,x.value]))};
+}
+const vt=id=>(D.v.find(x=>x.id===id)||{}).title||'?';
+function render(){
+  const tabs=[['videos','Videolar'],['codes','Kodlar'],['files','Fayllar'],['stats','Statistika'],['acc','Hisob'],['tests','Testlar'],['qs','Savollar'],['stu',"O'quvchilar"]];
+  const on=t=>tab===t||(tab==='stuone'&&t==='stu')||(tab==='edit'&&t==='tests');
+  let h=`<h1>Ustoz kabineti</h1><div class="t">${tabs.map(t=>`<button class="${on(t[0])?'':'g'}" onclick="tab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>`;
+  if(tab==='videos'){
+    h+=`<div class="c"><h2>Yangi papka</h2><input id="fn" placeholder="Papka nomi (masalan: Algebra 9-sinf)"><button onclick="addFolder()">Papka qo'shish</button></div>
+    <div class="c"><h2>Video qo'shish</h2><input id="vtt" placeholder="Video nomi"><input id="vl" placeholder="YouTube havolasi"><select id="vf"><option value="">Papkasiz</option>${D.f.filter(x=>x.type!=='file').map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button onclick="addVideo()">Qo'shish</button></div>`;
+    h+=`<div class="c"><h2>Ko'p video qo'shish</h2><small>Har qatorga bitta: <b>havola</b> yoki <b>Nomi | havola</b>. Nom yozilmasa, YouTube'dan o'zi olinadi.</small><textarea id="bt" placeholder="https://youtu.be/xxxxxxxxxxx&#10;1-dars | https://youtu.be/yyyyyyyyyyy"></textarea><select id="bf"><option value="">Papkasiz</option>${D.f.filter(x=>x.type!=='file').map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button onclick="bulkAdd()">Hammasini qo'shish</button><p id="bmsg"><small></small></p></div>`;
+    const groups=[...D.f.filter(f=>f.type!=='file').map(f=>[f.id,f.name]),['','Papkasiz']];
+    groups.forEach(([fid,fname])=>{const vs=D.v.filter(v=>(v.folder_id||'')===fid);if(!vs.length&&!fid)return;
+      h+=`<div class="c"><h2>📁 ${esc(fname)} ${fid?`<button class="r" style="padding:4px 10px;float:right;margin:0" onclick="delFolder('${fid}')">✕</button>`:''}</h2>`+
+      (vs.length?vs.map(v=>`<div class="row"><b>${esc(v.title)}</b><br><button onclick="mkCode('${v.id}')">+ Kod</button><button class="g" onclick="repl('${v.id}')">Almashtirish</button><button class="r" onclick="delVideo('${v.id}')">O'chirish</button></div>`).join(''):'<small>Bo\'sh</small>')+`</div>`});
+  }
+  if(tab==='codes'){
+    h+=`<div class="c"><h2>Kodlar</h2>`+(D.c.length?D.c.map(c=>`<div class="row"><span class="big" style="font-size:18px">${c.code}</span> <span class="${c.used?'no':'ok'}">${c.used?'ishlatilgan '+fmt(c.used_at):'ishlatilmagan'}</span><br>${esc(vt(c.video_id))}${c.student_name?' · '+esc(c.student_name):''}<br><button class="g" onclick="delCode('${c.id}')">O'chirish</button></div>`).join(''):'<small>Hali kod yo\'q. Videolar bo\'limida "+ Kod" bosing.</small>')+`</div>`;
+  }
+  if(tab==='stats'){
+    h+=`<div class="c"><h2>Kim nimani ko'rgan</h2>`+(D.l.length?D.l.map(l=>`<div class="row"><b>${esc(l.student_name||'Ismsiz')}</b> — ${esc(vt(l.video_id))}<br><small>${fmt(l.started_at)}</small></div>`).join(''):'<small>Hali ko\'rish yo\'q.</small>')+`</div>
+    <div class="c"><h2>Videolar bo'yicha</h2>${D.v.map(v=>`<div class="row">${esc(v.title)}: <b>${D.l.filter(l=>l.video_id===v.id).length}</b> marta</div>`).join('')}</div>`;
+  }
+  if(tab==='acc'){
+    h+=`<div class="c"><h2>Ustoz bilan bog'lanish <small>(o'quvchilar sahifasida tugma bo'lib chiqadi)</small></h2><input id="ctg" placeholder="Telegram: @username" value="${esc(D.set.tg||'')}"><input id="cph" placeholder="Telefon: +998901234567" value="${esc(D.set.phone||'')}"><button onclick="saveContacts()">Saqlash</button></div>
+    <div class="c"><h2>Login (email) o'zgartirish</h2><input id="ne" type="email" placeholder="Yangi email"><button onclick="upd({email:ne.value})">Saqlash</button></div>
+    <div class="c"><h2>Parol o'zgartirish</h2><input id="np" type="password" placeholder="Yangi parol (8+ belgi)"><button onclick="upd({password:np.value})">Saqlash</button></div>
+    <button class="r" onclick="logout()">Chiqish</button>`;
+  }
+  if(tab==='files'){
+    const ff=D.f.filter(x=>x.type==='file');
+    h+=`<div class="c"><h2>Yangi fayl papkasi</h2><input id="ffn" placeholder="Papka nomi (masalan: Testlar 9-sinf)"><button onclick="addFFolder()">Papka qo'shish</button></div>
+    <div class="c"><h2>Fayl yuklash</h2><input id="ft" placeholder="Nomi (ixtiyoriy)"><select id="fk"><option value="file">Fayl</option><option value="test">Test</option></select><select id="ffo"><option value="">Papkasiz</option>${ff.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><input id="fi" type="file"><button onclick="upFile()">Yuklash</button><p id="fmsg"><small>Bitta fayl 50 MB gacha.</small></p></div>`;
+    [...ff.map(f=>[f.id,f.name]),['','Papkasiz']].forEach(([fid,fname])=>{const xs=D.fl.filter(x=>(x.folder_id||'')===fid);if(!xs.length&&!fid)return;
+      h+=`<div class="c"><h2>📁 ${esc(fname)} ${fid?`<button class="r" style="padding:4px 10px;float:right;margin:0" onclick="delFolder('${fid}')">✕</button>`:''}</h2>`+
+      (xs.length?xs.map(x=>`<div class="row"><b>${esc(x.title)}</b> <small>${x.kind==='test'?'Test':'Fayl'} · ${fmt(x.created_at)}</small><br><button onclick="openFile('${x.id}')">Ochish</button><button class="g" onclick="replFile('${x.id}')">Almashtirish</button><button class="r" onclick="delFile('${x.id}')">O'chirish</button></div>`).join(''):'<small>Bo\'sh</small>')+`</div>`});
+  }
+  if(tab==='tests')h+=testsHtml();if(tab==='qs')h+=qsHtml();if(tab==='stu')h+=stuHtml();if(tab==='stuone')h+=stuOneHtml();if(tab==='edit')h+=editorHtml();app.innerHTML=h+`<p><a href="#">Talaba sahifasi</a></p>`;if(tab==='edit')setTimeout(ePreviewAll,0);
+}
+async function act(p){const {error}=await p;if(error)alert('Xato: '+error.message);await load();render()}
+function addFolder(){if(!fn.value.trim())return;act(sb.from('folders').insert({name:fn.value.trim()}))}
+function delFolder(id){if(confirm("Papka o'chirilsinmi? Videolar papkasiz qoladi."))act(sb.from('folders').delete().eq('id',id))}
+function addVideo(){const y=ytId(vl.value);if(!vtt.value.trim()||!y){alert("Nom va to'g'ri YouTube havolasini kiriting");return}
+  act(sb.from('videos').insert({title:vtt.value.trim(),youtube_id:y,folder_id:vf.value||null}))}
+function repl(id){const u=prompt("Yangi YouTube havolasi:");const y=ytId(u);if(!y){alert("Havola noto'g'ri");return}act(sb.from('videos').update({youtube_id:y}).eq('id',id))}
+function delVideo(id){if(confirm("Video o'chirilsinmi?"))act(sb.from('videos').delete().eq('id',id))}
+async function mkCode(vid){const n=prompt("O'quvchi ismi (ixtiyoriy):")??null;if(n===null&&!confirm("Ismsiz kod yaratilsinmi?"))return;
+  const code=gen();const {error}=await sb.from('access_codes').insert({video_id:vid,code,student_name:n||null});
+  if(error){alert('Xato: '+error.message);return}await load();tab='codes';render();alert('Kod: '+code)}
+function delCode(id){act(sb.from('access_codes').delete().eq('id',id))}
+async function upd(o){const {error}=await sb.auth.updateUser(o);alert(error?'Xato: '+error.message:'Saqlandi')}
+async function saveContacts(){const {error}=await sb.from('settings').upsert([{key:'tg',value:ctg.value.trim()},{key:'phone',value:cph.value.trim()}]);
+  if(error){alert('Xato: '+error.message);return}CT=null;await load();render();alert('Saqlandi')}
+function addFFolder(){if(!ffn.value.trim())return;act(sb.from('folders').insert({name:ffn.value.trim(),type:'file'}))}
+const safe=n=>n.replace(/[^\w.\-]+/g,'_');
+async function upFile(){const f=fi.files[0];if(!f){alert('Fayl tanlang');return}
+  fmsg.textContent='Yuklanmoqda...';
+  const path=crypto.randomUUID()+'/'+safe(f.name);
+  const {error}=await sb.storage.from('files').upload(path,f);
+  if(error){fmsg.textContent='Xato: '+error.message;return}
+  await act(sb.from('files').insert({title:ft.value.trim()||f.name,file_url:path,kind:fk.value,folder_id:ffo.value||null}))}
+async function openFile(id){const x=D.fl.find(a=>a.id===id);const w=window.open('','_blank');
+  const {data,error}=await sb.storage.from('files').createSignedUrl(x.file_url,3600);
+  if(error){if(w)w.close();alert('Xato: '+error.message);return}
+  if(w)w.location=data.signedUrl;else location.href=data.signedUrl}
+function replFile(id){const x=D.fl.find(a=>a.id===id);const i=document.createElement('input');i.type='file';
+  i.onchange=async()=>{const f=i.files[0];if(!f)return;const path=crypto.randomUUID()+'/'+safe(f.name);
+    const u=await sb.storage.from('files').upload(path,f);if(u.error){alert('Xato: '+u.error.message);return}
+    await sb.storage.from('files').remove([x.file_url]);
+    act(sb.from('files').update({file_url:path}).eq('id',id))};i.click()}
+function delFile(id){const x=D.fl.find(a=>a.id===id);if(!confirm("Fayl o'chirilsinmi?"))return;
+  sb.storage.from('files').remove([x.file_url]).then(()=>act(sb.from('files').delete().eq('id',id)))}
+async function bulkAdd(){
+  const have=new Set(D.v.map(v=>v.youtube_id));const items=[];
+  for(const L of bt.value.split('\n').map(x=>x.trim()).filter(Boolean)){
+    let t='',u=L;const i=L.lastIndexOf('|');if(i>-1){t=L.slice(0,i).trim();u=L.slice(i+1).trim()}
+    const y=ytId(u);if(!y||have.has(y))continue;have.add(y);items.push({t,y})}
+  if(!items.length){alert("Yangi to'g'ri havola topilmadi");return}
+  let done=0;
+  for(let k=0;k<items.length;k+=10){
+    await Promise.all(items.slice(k,k+10).map(async it=>{
+      if(!it.t){try{const r=await fetch('https://noembed.com/embed?url='+encodeURIComponent('https://www.youtube.com/watch?v='+it.y));it.t=(await r.json()).title||''}catch(e){}}
+      done++;bmsg.textContent='Nomlar olinmoqda: '+done+'/'+items.length}))}
+  const base=D.v.length;
+  const rows=items.map((it,n)=>({title:it.t||('Video '+(base+n+1)),youtube_id:it.y,folder_id:bf.value||null,sort_order:base+n+1}));
+  const {error}=await sb.from('videos').insert(rows);
+  if(error){alert('Xato: '+error.message);return}
+  await load();render();alert(rows.length+" ta video qo'shildi")}
+/* ---------- TEST va SAVOL ---------- */
+let T,CV,tm,ans={},fin=false,live=false;
+const kx=el=>{try{renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})}catch(e){}};
+const H=s=>esc(s).replace(/\n/g,'<br>');
+async function extras(v){CV=v;T=null;
+  const {data:t}=await sb.rpc('get_test',{p_video:v.i});let h='';
+  if(t&&t.length){T=t[0];h+=`<div class="c"><h2>📝 ${esc(T.title)}</h2><p>${T.qs.length} ta savol · ${T.minutes} daqiqa<br><small>«Boshlash» tugmasini bosganingizdan keyin vaqt hisoblana boshlaydi.</small></p><p><small>⚠️ Test boshlangach boshqa oynaga yoki ilovaga o'tsangiz, sahifani yopsangiz yoki yangilasangiz, test <b>o'zi yakunlanadi</b> va shu paytgacha bergan javoblaringiz hisoblanadi.</small></p><button onclick="startTest()">Boshlash</button></div>`}
+  h+=`<div class="c"><h2>Ustozga savol</h2><textarea id="qt" style="min-height:80px" maxlength="1000" placeholder="Savolingizni yozing"></textarea><input id="qc" placeholder="Telegram yoki telefon (javob olish uchun)"><button onclick="askQ()">Yuborish</button><p id="qm"></p></div>`;
+  const ex=document.getElementById('ex');if(ex)ex.innerHTML=h;
+  const ct=await getContacts();const ex2=document.getElementById('ex');if(ex2&&CV===v)ex2.insertAdjacentHTML('beforeend',contactHtml(ct))}
+async function askQ(){const t=qt.value.trim();if(!t)return;
+  const {error}=await sb.rpc('ask_question',{p_video:CV.i,p_text:t,p_contact:qc.value.trim(),p_name:CV.n||null});
+  qm.textContent=error?'Xato, qayta urinib ko\'ring':'Savol yuborildi ✓';if(!error)qt.value=''}
+function optsHtml(q,cls){return '<div class="ot">'+q.o.map((o,j)=>{const nl=o.charAt(0)==='\n';return (nl?'<br>':'')+'<span class="oi '+(cls?cls(j):'')+'"><b>'+'ABCD'[j]+')</b> '+H(o.replace(/^\n/,''))+'</span>'}).join('')+'</div>'}
+function qBlock(q,i,fixed,sel,cls,foot,extra){
+  return '<div class="c '+(extra||'')+'" id="q'+i+'"><div class="qt"><b>'+(i+1)+'.</b> '+H(q.q)+'</div>'+optsHtml(q,cls)+'<div class="ob">'+[0,1,2,3].map(j=>'<button type="button" id="'+(fixed?'x':'b')+i+'_'+j+'" class="'+(sel===j?'sel ':'')+(cls?cls(j):'')+'"'+(fixed?' disabled':' onclick="pick('+i+','+j+')"')+'>'+'ABCD'[j]+'</button>').join('')+'</div>'+(foot||'')+'</div>'}
+function cnt0(){const n=T.qs.length,d=T.qs.filter((_,i)=>ans[i]!=null).length;const el=document.getElementById('cnt');if(el)el.textContent='Javob: '+d+' / '+n}
+function pick(i,j){ans[i]=ans[i]===j?null:j;[0,1,2,3].forEach(k=>{const b=document.getElementById('b'+i+'_'+k);if(b)b.classList.toggle('sel',ans[i]===k)});cnt0()}
+function startTest(){ans={};fin=false;live=true;clearInterval(tm);const end=Date.now()+T.minutes*60000;
+  app.innerHTML='<div class="c tb"><div><div class="big" id="tt" style="font-size:22px;line-height:1.2"></div><small id="cnt"></small></div><button class="r" onclick="early()">Yakunlash</button></div><h1>'+esc(T.title)+'</h1><div id="qbox"></div><button onclick="early()">Testni yakunlash</button>';
+  document.getElementById('qbox').innerHTML=T.qs.map((q,i)=>qBlock(q,i,false)).join('');
+  kx(app);window.scrollTo(0,0);cnt0();
+  const tick=()=>{const el=document.getElementById('tt');if(!el){clearInterval(tm);return}const s=Math.max(0,Math.round((end-Date.now())/1000));el.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');el.style.color=s<=60?'#c0392b':'';if(s<=0)finish()};tick();tm=setInterval(tick,500)}
+function early(){if(!live||fin||document.getElementById('mdl'))return;
+  const n=T.qs.length,un=T.qs.filter((_,i)=>ans[i]==null).length;
+  const m=document.createElement('div');m.id='mdl';m.className='mdl';
+  m.innerHTML='<div class="mb"><h2>Testni yakunlaysizmi?</h2><p>Javob berilgan: <b>'+(n-un)+'</b> / '+n+(un?'<br><span class="no">Javobsiz: <b>'+un+'</b> ta (xato hisoblanadi)</span>':'')+'</p><button onclick="document.getElementById(\'mdl\').remove();finish()">Ha, yakunlash</button><button class="g" onclick="document.getElementById(\'mdl\').remove()">Davom etish</button></div>';
+  document.body.appendChild(m)}
+const ansArr=()=>T.qs.map((_,i)=>ans[i]??-1);
+async function finish(){if(fin)return;fin=true;live=false;clearInterval(tm);
+  const md=document.getElementById('mdl');if(md)md.remove();
+  const a=ansArr();
+  const {data:r,error}=await sb.rpc('grade_test',{p_test:T.id,p_answers:a,p_name:CV.n||null,p_sid:(S()||{}).s||null,p_pin:(S()||{}).p||null});
+  if(error){fin=false;live=true;alert('Xato: '+error.message);return}
+  const n=a.length,okc=r.ok.filter(x=>x).length,sk=a.filter(x=>x<0).length,wa=r.ok.filter((o,i)=>!o&&a[i]>=0).length;
+  const wl=r.ok.map((o,i)=>o?0:i+1).filter(Boolean);
+  let h=`<h1>Natija</h1><div class="c"><div class="big">${r.score} / ${n}</div><div class="st3"><div class="sx g1"><b>${okc}</b><small>to'g'ri</small></div><div class="sx r1"><b>${wa}</b><small>xato</small></div><div class="sx"><b>${sk}</b><small>javobsiz</small></div></div><p>${Math.round(r.score*100/n)}%</p><p>${wl.length?'<b>Xato qilgan savollaringiz:</b><br>'+wl.map(i=>`<a class="wl" href="#q${i-1}" onclick="document.getElementById('q${i-1}').scrollIntoView();return false">${i}</a>`).join(''):'Barcha savollarga to\'g\'ri javob berdingiz! 🎉'}</p><div class="t">${r.ok.map((o,i)=>`<button style="width:40px;height:40px;padding:0;border-radius:50%;${o?'background:#d7f0e0;color:#166a3a':'background:#fdeceb;color:#c0392b'}" onclick="document.getElementById('q${i}').scrollIntoView()">${i+1}</button>`).join('')}</div><button class="g" onclick="student()">Videoga qaytish</button><button class="g" onclick="startTest()">Qayta ishlash</button></div>`;
+  h+=T.qs.map((q,i)=>qBlock(q,i,true,null,j=>r.c[i]===j?'good':(a[i]===j?'wrongo':''),'<small>Sizning javobingiz: <b>'+(a[i]<0?'—':'ABCD'[a[i]])+'</b> · To\'g\'ri javob: <b>'+'ABCD'[r.c[i]]+'</b> '+(r.ok[i]?'✅':'❌')+'</small>',r.ok[i]?'':'bad')).join('');
+  app.innerHTML=h;kx(app);window.scrollTo(0,0)}
+/* Saytdan chiqsa test o'zi yakunlanadi */
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&live&&!fin&&T)finish()});
+window.addEventListener('pagehide',()=>{if(!live||fin||!T)return;fin=true;live=false;clearInterval(tm);
+  try{const s=S()||{};fetch(SBU+'/rest/v1/rpc/grade_test',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json',apikey:SBK,Authorization:'Bearer '+SBK},body:JSON.stringify({p_test:T.id,p_answers:ansArr(),p_name:CV?CV.n||null:null,p_sid:s.s||null,p_pin:s.p||null})})}catch(e){}});
+
+/* ---------- WORD (.docx) ni o'qish: matn + formulalar (OMML -> LaTeX) ---------- */
+const NS_W='http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+const MSYM={'∞':'\\infty ','≥':'\\geq ','≤':'\\leq ','⩾':'\\geq ','⩽':'\\leq ','≠':'\\neq ','≈':'\\approx ','≡':'\\equiv ','∼':'\\sim ','±':'\\pm ','∓':'\\mp ','×':'\\times ','÷':'\\div ','·':'\\cdot ','⋅':'\\cdot ','∙':'\\cdot ','∘':'\\circ ','−':'-','–':'-','—':'-','∪':'\\cup ','∩':'\\cap ','∈':'\\in ','∉':'\\notin ','∋':'\\ni ','⊂':'\\subset ','⊃':'\\supset ','⊆':'\\subseteq ','⊇':'\\supseteq ','∅':'\\emptyset ','∀':'\\forall ','∃':'\\exists ','¬':'\\neg ','∧':'\\wedge ','∨':'\\vee ','→':'\\to ','←':'\\leftarrow ','↔':'\\leftrightarrow ','⇒':'\\Rightarrow ','⇐':'\\Leftarrow ','⇔':'\\Leftrightarrow ','∠':'\\angle ','∥':'\\parallel ','⊥':'\\perp ','△':'\\triangle ','°':'^{\\circ}','√':'\\surd ','π':'\\pi ','α':'\\alpha ','β':'\\beta ','γ':'\\gamma ','δ':'\\delta ','ε':'\\varepsilon ','θ':'\\theta ','λ':'\\lambda ','μ':'\\mu ','ρ':'\\rho ','σ':'\\sigma ','τ':'\\tau ','φ':'\\varphi ','ω':'\\omega ','ψ':'\\psi ','η':'\\eta ','ξ':'\\xi ','κ':'\\kappa ','Δ':'\\Delta ','∆':'\\Delta ','Σ':'\\Sigma ','Φ':'\\Phi ','Ω':'\\Omega ','Γ':'\\Gamma ','Θ':'\\Theta ','Λ':'\\Lambda ','Π':'\\Pi ','Ψ':'\\Psi ','ℝ':'\\mathbb{R} ','ℕ':'\\mathbb{N} ','ℤ':'\\mathbb{Z} ','ℚ':'\\mathbb{Q} ','ℂ':'\\mathbb{C} ','∂':'\\partial ','…':'\\ldots ','⋯':'\\cdots ','′':"'",'″':"''",'²':'^{2}','³':'^{3}','¹':'^{1}','⁴':'^{4}','ⁿ':'^{n}','⌊':'\\lfloor ','⌋':'\\rfloor ','⌈':'\\lceil ','⌉':'\\rceil ','∑':'\\sum ','∏':'\\prod ','∫':'\\int ','≪':'\\ll ','≫':'\\gg ','∝':'\\propto ','∶':':','∣':'|','⁄':'/'};
+let MARR=false;
+const mchar=ch=>{if(MSYM[ch]!==undefined)return MSYM[ch];
+  switch(ch){case ' ':case '\u00a0':case '\u2009':case '\u200a':case '\u2002':case '\u2003':return '';
+    case '\\':return '\\backslash ';case '{':return '\\{ ';case '}':return '\\} ';case '%':return '\\% ';case '#':return '\\# ';case '$':return '\\$ ';case '_':return '\\_ ';case '^':return '\\^{} ';case '~':return '\\sim ';case '&':return MARR?'':'\\& ';}
+  return ch};
+const kids=(n,nm)=>n?[...n.childNodes].filter(c=>c.nodeType===1&&c.localName===nm):[];
+const kid=(n,nm)=>kids(n,nm)[0];
+const mval=(n,nm,def)=>{const c=kid(n,nm);if(!c)return def;const v=c.getAttribute('m:val');return v==null?def:v};
+const FN1=/^(sin|cos|tan|cot|sec|csc|log|ln|lg|lim|min|max|exp|arcsin|arccos|arctan|sinh|cosh|tanh|det|gcd)$/;
+const FN2=/^(tg|ctg|arctg|arcctg|sh|ch|th|cth|sgn|tgh)$/;
+const dlm=(c,beg)=>{const M={'(':'(',')':')','[':'[',']':']','{':'\\{','}':'\\}','|':'|','‖':'\\|','⌊':'\\lfloor','⌋':'\\rfloor','⌈':'\\lceil','⌉':'\\rceil','⟨':'\\langle','〈':'\\langle','⟩':'\\rangle','〉':'\\rangle','<':beg?'\\langle':'<','>':beg?'>':'\\rangle','/':'/'};return c===''?'.':(M[c]!==undefined?M[c]:'.')};
+function mrun(r){
+  const rp=kid(r,'rPr');let sty=null,nor=false;
+  if(rp){const s=kid(rp,'sty');if(s)sty=s.getAttribute('m:val');const no=kid(rp,'nor');if(no){const v=no.getAttribute('m:val');if(v!=='0'&&v!=='false'&&v!=='off')nor=true}}
+  const t=[...r.childNodes].filter(c=>c.nodeType===1&&c.localName==='t').map(c=>c.textContent).join('');
+  if(!t)return '';
+  if(nor)return '\\text{'+t.replace(/[\\{}$%&#_^~]/g,'')+'}';
+  const tt=t.trim();
+  if(FN1.test(tt))return '\\'+tt+' ';
+  if(FN2.test(tt))return '\\operatorname{'+tt+'}';
+  let o='';
+  for(const ch of t){
+    if(/[A-Za-z]/.test(ch)&&sty==='p')o+='\\mathrm{'+ch+'}';
+    else if(/[A-Za-z]/.test(ch)&&sty==='b')o+='\\mathbf{'+ch+'}';
+    else if(/[A-Za-z]/.test(ch)&&sty==='bi')o+='\\boldsymbol{'+ch+'}';
+    else o+=mchar(ch)}
+  return o}
+const mk=n=>n?[...n.childNodes].filter(c=>c.nodeType===1).map(mx).join(''):'';
+function mx(n){const nm=n.localName;
+  if(/Pr$/.test(nm))return '';
+  switch(nm){
+    case 'r':return mrun(n);
+    case 'f':{const ty=mval(kid(n,'fPr')||n,'type','bar');const a=mk(kid(n,'num')),b=mk(kid(n,'den'));
+      return ty==='lin'?'{'+a+'}/{'+b+'}':(ty==='noBar'?'\\binom{'+a+'}{'+b+'}':'\\frac{'+a+'}{'+b+'}')}
+    case 'sSup':return '{'+mk(kid(n,'e'))+'}^{'+mk(kid(n,'sup'))+'}';
+    case 'sSub':return '{'+mk(kid(n,'e'))+'}_{'+mk(kid(n,'sub'))+'}';
+    case 'sSubSup':return '{'+mk(kid(n,'e'))+'}_{'+mk(kid(n,'sub'))+'}^{'+mk(kid(n,'sup'))+'}';
+    case 'sPre':return '{}_{'+mk(kid(n,'sub'))+'}^{'+mk(kid(n,'sup'))+'}{'+mk(kid(n,'e'))+'}';
+    case 'rad':{const dg=mk(kid(n,'deg'));const hide=mval(kid(n,'radPr')||n,'degHide','0');
+      return (hide==='1'||hide==='true'||hide==='on'||!dg)?'\\sqrt{'+mk(kid(n,'e'))+'}':'\\sqrt['+dg+']{'+mk(kid(n,'e'))+'}'}
+    case 'd':{const pr=kid(n,'dPr');
+      const b=pr?mval(pr,'begChr','('):'(',e=pr?mval(pr,'endChr',')'):')',s=pr?mval(pr,'sepChr','|'):'|';
+      const parts=kids(n,'e').map(mk);
+      const sep=s==='|'?'\\,\\middle|\\,':(s===''?'':s);
+      return '\\left'+dlm(b,true)+' '+parts.join(sep)+' \\right'+dlm(e,false)}
+    case 'eqArr':{const old=MARR;MARR=true;const rows=kids(n,'e').map(mk);MARR=old;
+      return '\\begin{array}{l}'+rows.join(' \\\\ ')+'\\end{array}'}
+    case 'nary':{const pr=kid(n,'naryPr');const chr=pr?mval(pr,'chr','∫'):'∫';
+      const OP={'∑':'\\sum','∏':'\\prod','∫':'\\int','∬':'\\iint','∭':'\\iiint','∮':'\\oint','⋃':'\\bigcup','⋂':'\\bigcap'};
+      const hs=v=>v==='1'||v==='true'||v==='on';
+      const subH=pr?hs(mval(pr,'subHide','0')):false,supH=pr?hs(mval(pr,'supHide','0')):false;
+      const sb2=mk(kid(n,'sub')),sp=mk(kid(n,'sup'));
+      return (OP[chr]||'\\int')+(!subH&&sb2?'_{'+sb2+'}':'')+(!supH&&sp?'^{'+sp+'}':'')+' {'+mk(kid(n,'e'))+'}'}
+    case 'func':return '{'+mk(kid(n,'fName'))+'}{'+mk(kid(n,'e'))+'}';
+    case 'limLow':{const e=mk(kid(n,'e')),l=mk(kid(n,'lim'));return /^\\lim\s*$/.test(e)?'\\lim\\limits_{'+l+'}':'\\underset{'+l+'}{'+e+'}'}
+    case 'limUpp':return '\\overset{'+mk(kid(n,'lim'))+'}{'+mk(kid(n,'e'))+'}';
+    case 'acc':{const pr=kid(n,'accPr');const c=pr?mval(pr,'chr','̂'):'̂';
+      const AC={'̅':'overline','¯':'overline','̄':'bar','⃗':'vec','→':'vec','̃':'tilde','~':'tilde','̇':'dot','˙':'dot','̈':'ddot','¨':'ddot','̌':'check','´':'acute','`':'grave'};
+      return '\\'+(AC[c]||'hat')+'{'+mk(kid(n,'e'))+'}'}
+    case 'bar':{const pr=kid(n,'barPr');const pos=pr?mval(pr,'pos','top'):'top';return (pos==='bot'?'\\underline{':'\\overline{')+mk(kid(n,'e'))+'}'}
+    case 'borderBox':return '\\boxed{'+mk(kid(n,'e'))+'}';
+    case 'm':return '\\begin{matrix}'+kids(n,'mr').map(mr=>kids(mr,'e').map(mk).join(' & ')).join(' \\\\ ')+'\\end{matrix}';
+    default:return mk(n)}}
+function wrun(r){let t='';
+  for(const c of r.childNodes){if(c.nodeType!==1)continue;const n=c.localName;
+    if(n==='t')t+=c.textContent;else if(n==='tab')t+='    ';else if(n==='br'||n==='cr')t+='\n';else if(n==='noBreakHyphen')t+='-'}
+  const rp=[...r.childNodes].find(c=>c.nodeType===1&&c.localName==='rPr');
+  const va=rp&&[...rp.childNodes].find(c=>c.nodeType===1&&c.localName==='vertAlign');
+  const v=va&&va.getAttribute('w:val');
+  if(t.trim()&&v==='superscript')return '$^{'+[...t].map(mchar).join('')+'}$';
+  if(t.trim()&&v==='subscript')return '$_{'+[...t].map(mchar).join('')+'}$';
+  return t}
+/* Savol raqami ("1.") Word'da ba'zan formula ichida yoziladi: uni oddiy matn qilamiz */
+/* o'nli kasr vergulida KaTeX ortiqcha bo'shliq qo'ymasin: 0,5 */
+const ml=s=>s.replace(/(\d),(?=\d)/g,'$1{,}');
+const qnum=c=>{const x=c.textContent.trim();return /^\d{1,3}\.$/.test(x)?x:null};
+function paraText(p){let o='';
+  const walk=n=>{for(const c of n.childNodes){if(c.nodeType!==1)continue;const nm=c.localName;
+    if(nm==='r'&&c.namespaceURI===NS_W)o+=wrun(c);
+    else if(nm==='oMathPara')o+=kids(c,'oMath').map(x=>{const q=!o.trim()&&qnum(x);return q?q+' ':'$'+ml(mk(x))+'$'}).join(' ');
+    else if(nm==='oMath'){const q=!o.trim()&&qnum(c);o+=q?q+' ':'$'+ml(mk(c))+'$'}
+    else if(nm==='pPr'||nm==='rPr'||nm==='del')continue;
+    else walk(c)}};
+  walk(p);return o}
+async function docxToText(file){
+  if(!window.JSZip)throw new Error("JSZip kutubxonasi yuklanmadi. Internetni tekshirib, sahifani yangilang.");
+  const z=await JSZip.loadAsync(await file.arrayBuffer());
+  const f=z.file('word/document.xml');if(!f)throw new Error("Bu Word (.docx) fayl emas");
+  const doc=new DOMParser().parseFromString(await f.async('string'),'application/xml');
+  if(doc.getElementsByTagName('parsererror').length)throw new Error("Faylni o'qib bo'lmadi");
+  const body=doc.getElementsByTagNameNS(NS_W,'body')[0];
+  if(!body)throw new Error("Fayl ichida matn topilmadi");
+  return [...body.getElementsByTagNameNS(NS_W,'p')].map(paraText).join('\n')}
+
+/* ---------- Test matnini savollarga ajratish ---------- */
+function parseTest(t,key){const ansm={};const am=t.match(/javoblar\s*:?([\s\S]*)$/i);let ks=null;
+  if(am){ks=am[1];t=t.slice(0,am.index)}else if(key&&key.trim())ks=key;
+  if(ks){for(const m of ks.matchAll(/(\d+)\s*[-.):]?\s*([A-Da-d])/g))ansm[+m[1]]='ABCD'.indexOf(m[2].toUpperCase())}
+  const qs=[];
+  for(const b of t.split(/\n\s*(?=\d+\s*[.)]\s)/)){const m=b.trim().match(/^(\d+)\s*[.)]\s*([\s\S]*)$/);if(!m)continue;
+    const body=m[2],ix=[];let pos=0;
+    for(let k=0;k<4;k++){const mm=new RegExp('(^|\\s)'+'ABCD'[k]+'\\)\\s*').exec(body.slice(pos));if(!mm)break;ix.push([pos+mm.index+mm[1].length,pos+mm.index+mm[0].length]);pos+=mm.index+mm[0].length}
+    if(ix.length<4)continue;
+    const raws=ix.map((x,k)=>body.slice(x[1],k<3?ix[k+1][0]:undefined));
+    qs.push({n:+m[1],q:body.slice(0,ix[0][0]).trim().replace(/\n{3,}/g,'\n\n'),o:raws.map((r,k)=>{const s=r.trim();return (k>0&&/\n\s*$/.test(raws[k-1]))?'\n'+s:s})})}
+  return {qs,ansm}}
+let pvt;
+const previewSoon=()=>{clearTimeout(pvt);pvt=setTimeout(previewTest,500)};
+function previewTest(){
+  const el=document.getElementById('tpv');if(!el)return;
+  if(!tx.value.trim()){el.innerHTML='';return}
+  const {qs,ansm}=parseTest(tx.value,tak.value);
+  if(!qs.length){el.innerHTML='';tfm.textContent="Savollar topilmadi. Format: 1. Savol A) ... B) ... C) ... D) ...";return}
+  const miss=qs.filter(q=>!(q.n in ansm)).map(q=>q.n);
+  tfm.textContent=qs.length+" ta savol topildi. "+(miss.length?"Javobi yo'q: "+miss.join(', ')+" (pastdagi \"To'g'ri javoblar\" katagiga yozing).":"Javoblar topildi.");
+  el.innerHTML='<h2 style="margin:18px 4px 0">👁 O\'quvchida shunday ko\'rinadi <small>(yashil doira = to\'g\'ri javob)</small></h2>'+qs.map((q,i)=>qBlock(q,i,true,ansm[q.n])).join('');
+  kx(el)}
+async function readTestFile(inp){
+  const f=inp.files[0];if(!f)return;
+  tfm.textContent="Fayl o'qilmoqda...";
+  try{let t='';
+    if(/\.docx$/i.test(f.name))t=await docxToText(f);
+    else if(/\.txt$/i.test(f.name))t=await f.text();
+    else{tfm.textContent="Faqat .docx yoki .txt fayl tanlang (eski .doc ishlamaydi).";return}
+    tx.value=t.replace(/\r/g,'').replace(/\u00a0/g,' ').trim();
+    if(!tn.value.trim())tn.value=f.name.replace(/\.[^.]+$/,'');
+    previewTest();
+    if(!tx.value)tfm.textContent="Faylda matn topilmadi"
+  }catch(e){tfm.textContent='Xato: '+e.message}}
+async function saveTest(){const {qs,ansm}=parseTest(tx.value,tak.value);
+  if(!qs.length){tmsg.textContent='Savollar topilmadi';return}
+  const miss=qs.filter(q=>!(q.n in ansm)).map(q=>q.n);
+  if(miss.length){tmsg.textContent="Javobi yo'q: "+miss.join(', ')+". \"To'g'ri javoblar\" katagiga yozing (masalan: 1C 2B 3A).";return}
+  const mn=parseInt(tm2.value);if(!mn||mn<1){tmsg.textContent="Test vaqtini (daqiqa) kiriting";return}
+  const {data,error}=await sb.from('tests').insert({video_id:tv.value,title:tn.value.trim()||'Test',minutes:mn,qs:qs.map(({q,o})=>({q,o}))}).select().single();
+  if(error){alert('Xato: '+error.message);return}
+  const k=await sb.from('test_keys').insert({test_id:data.id,ans:qs.map(q=>ansm[q.n])});
+  if(k.error){alert('Xato: '+k.error.message);return}
+  await load();render();alert(qs.length+" ta savol saqlandi")}
+function chTime(id,m){const v=prompt("Yangi vaqt (daqiqa):",m);const n=parseInt(v);if(!n||n<1)return;act(sb.from('tests').update({minutes:n}).eq('id',id))}
+/* ---------- TESTNI TAHRIRLASH ---------- */
+let E=null,ept={};
+async function eOpen(id){
+  const t=D.te.find(x=>x.id===id);if(!t)return;
+  const k=await sb.from('test_keys').select('ans').eq('test_id',id).maybeSingle();
+  if(k.error){alert("Javoblarni o'qib bo'lmadi: "+k.error.message);return}
+  const a=(k.data&&k.data.ans)||[];
+  E={id:t.id,title:t.title,minutes:t.minutes,video_id:t.video_id,
+    qs:t.qs.map(q=>({q:q.q,o:q.o.map(x=>x.replace(/^\n/,'')),nl:q.o.map(x=>x.charAt(0)==='\n')})),
+    ans:t.qs.map((_,i)=>(a[i]!=null?a[i]:null))};
+  tab='edit';render();window.scrollTo(0,0)}
+const eq=i=>({q:E.qs[i].q,o:E.qs[i].o.map((t,k)=>(E.qs[i].nl[k]?'\n':'')+t)});
+function epv(i){const el=document.getElementById('epv'+i);if(!el)return;
+  const q=eq(i);el.innerHTML='<div class="qt"><b>'+(i+1)+'.</b> '+H(q.q)+'</div>'+optsHtml(q);kx(el)}
+function ePreviewAll(){if(E)E.qs.forEach((_,i)=>epv(i))}
+function eSoon(i){clearTimeout(ept[i]);ept[i]=setTimeout(()=>epv(i),400)}
+function eQ(i,v){E.qs[i].q=v;eSoon(i)}
+function eO(i,k,v){E.qs[i].o[k]=v;eSoon(i)}
+function eA(i,j){E.ans[i]=j;[0,1,2,3].forEach(k=>{const b=document.getElementById('ea'+i+'_'+k);if(b)b.classList.toggle('sel',k===j)})}
+function eMeta(){E.title=document.getElementById('etn').value;E.minutes=document.getElementById('etm').value;E.video_id=document.getElementById('etv').value}
+function eAdd(){eMeta();E.qs.push({q:'',o:['','','',''],nl:[false,false,false,false]});E.ans.push(null);render();
+  setTimeout(()=>{const el=document.getElementById('eq'+(E.qs.length-1));if(el)el.scrollIntoView()},50)}
+function eDel(i){if(!confirm((i+1)+"-savol o'chirilsinmi?"))return;eMeta();E.qs.splice(i,1);E.ans.splice(i,1);render()}
+function editorHtml(){
+  return `<div class="c"><button class="g" onclick="tab='tests';render()">← Testlarga qaytish</button><h2 style="margin-top:14px">Testni tahrirlash</h2>
+  <small>Test nomi:</small><input id="etn" value="${esc(E.title)}">
+  <small>⏱ Vaqt (daqiqa):</small><input id="etm" type="number" min="1" value="${esc(E.minutes)}">
+  <small>Qaysi videoga bog'langan:</small><select id="etv">${D.v.map(v=>`<option value="${v.id}" ${v.id===E.video_id?'selected':''}>${esc(v.title)}</option>`).join('')}</select>
+  <p><small>Formulalar <b>$ ... $</b> belgisi ichida turadi (ularga tegmang). Har bir savol ostida o'quvchida qanday ko'rinishi chiqadi. To'g'ri javobni doirani bosib belgilang. Oxirida <b>Saqlash</b> ni bosing.</small></p></div>`+
+  E.qs.map((q,i)=>`<div class="c" id="eq${i}"><h2>${i+1}-savol <button class="r" style="float:right;margin:0;padding:4px 10px" onclick="eDel(${i})">✕ O'chirish</button></h2>
+   <textarea style="min-height:90px" oninput="eQ(${i},this.value)" placeholder="Savol matni">${esc(q.q)}</textarea>
+   ${q.o.map((t,k)=>`<input value="${esc(t)}" placeholder="${'ABCD'[k]} varianti" oninput="eO(${i},${k},this.value)">`).join('')}
+   <small>To'g'ri javob:</small><div class="ob">${[0,1,2,3].map(j=>`<button type="button" id="ea${i}_${j}" class="${E.ans[i]===j?'sel':''}" onclick="eA(${i},${j})">${'ABCD'[j]}</button>`).join('')}</div>
+   <div class="epv" id="epv${i}"></div></div>`).join('')+
+  `<div class="c"><button class="g" onclick="eAdd()">+ Savol qo'shish</button><button onclick="eSave()">💾 Saqlash</button><p id="emsg" class="no"></p></div>`}
+async function eSave(){eMeta();const m=document.getElementById('emsg');
+  const mn=parseInt(E.minutes);
+  if(!E.title.trim()){m.textContent='Test nomini yozing';return}
+  if(!mn||mn<1){m.textContent='Vaqtni (daqiqa) kiriting';return}
+  if(!E.qs.length){m.textContent="Kamida bitta savol bo'lsin";return}
+  for(let i=0;i<E.qs.length;i++){const q=E.qs[i];
+    if(!q.q.trim()){m.textContent=(i+1)+"-savol matni bo'sh";return}
+    const k=q.o.findIndex(t=>!t.trim());if(k>=0){m.textContent=(i+1)+"-savolda "+'ABCD'[k]+" varianti bo'sh";return}
+    if(E.ans[i]==null){m.textContent=(i+1)+"-savolning to'g'ri javobi belgilanmagan";return}}
+  if(D.rr.some(r=>r.test_id===E.id)&&!confirm("Bu testni o'quvchilar ishlagan. Savollarni o'zgartirsangiz, eski natijalar eski savollarga tegishli bo'lib qoladi. Davom etasizmi?"))return;
+  m.textContent='Saqlanmoqda...';
+  const qs=E.qs.map(x=>({q:x.q.trim(),o:x.o.map((t,k)=>(x.nl[k]?'\n':'')+t.trim())}));
+  const r1=await sb.from('tests').update({title:E.title.trim(),minutes:mn,video_id:E.video_id,qs}).eq('id',E.id);
+  if(r1.error){m.textContent='Xato: '+r1.error.message;return}
+  const u=await sb.from('test_keys').update({ans:E.ans}).eq('test_id',E.id).select();
+  if(u.error){m.textContent='Xato: '+u.error.message;return}
+  if(!u.data||!u.data.length){const i2=await sb.from('test_keys').insert({test_id:E.id,ans:E.ans});if(i2.error){m.textContent='Xato: '+i2.error.message;return}}
+  await load();tab='tests';render();alert('Saqlandi')}
+async function delTest(id){const n=D.rr.filter(r=>r.test_id===id).length;
+  if(!confirm("Test o'chirilsinmi?"+(n?" Uning "+n+" ta natijasi ham o'chadi.":"")))return;
+  if(n){const a=await sb.from('test_results').delete().eq('test_id',id);if(a.error){alert('Xato: '+a.error.message);return}}
+  await sb.from('test_keys').delete().eq('test_id',id);
+  act(sb.from('tests').delete().eq('id',id))}
+function testsHtml(){
+  let h=`<div class="c"><h2>Yangi test</h2><select id="tv">${D.v.map(v=>`<option value="${v.id}">${esc(v.title)}</option>`).join('')}</select><input id="tn" placeholder="Test nomi">
+  <small>⏱ <b>Test vaqti (daqiqa).</b> O'quvchi «Boshlash» ni bosgandan keyin shu vaqt hisoblanadi.</small><input id="tm2" type="number" min="1" placeholder="Masalan: 30" value="30">
+  <h2 style="margin-top:16px">📄 Word (.docx) fayldan yuklash</h2><small>Faylni tanlang: matn ham, formulalar ham o'qiladi. Savollar <b>1. ... A) ... B) ... C) ... D) ...</b> ko'rinishida bo'lishi kerak.</small><input id="tfi" type="file" accept=".docx,.txt" onchange="readTestFile(this)"><p id="tfm"><small></small></p>
+  <small>✅ <b>To'g'ri javoblar</b> (faylda «Javoblar: ...» qatori bo'lmasa, shu yerga yozing):</small><input id="tak" placeholder="Masalan: 1C 2B 3A 4D" oninput="previewSoon()">
+  <h2 style="margin-top:16px">✍️ Fayldan o'qilgan matn <small>(formulalar $ belgisi ichida; xohlasangiz o'zingiz ham joylashingiz mumkin)</small></h2><textarea id="tx" style="min-height:160px" oninput="previewSoon()"></textarea>
+  <button class="g" onclick="previewTest()">Ko'rib chiqish</button><button onclick="saveTest()">Testni saqlash</button><p id="tmsg" class="no"></p></div><div id="tpv"></div>`;
+  h+=`<div class="c"><h2>Testlar</h2>`+(D.te.length?D.te.map(t=>`<div class="row"><b>${esc(t.title)}</b> · ${esc(vt(t.video_id))}<br><small>${t.minutes} daqiqa · ${t.qs.length} savol</small><br><button onclick="eOpen('${t.id}')">✏️ Tahrirlash</button><button class="g" onclick="chTime('${t.id}',${t.minutes})">⏱ Vaqt</button><button class="r" onclick="delTest('${t.id}')">O'chirish</button></div>`).join(''):"<small>Hali test yo'q</small>")+`</div>`;
+  return h+`<div class="c"><h2>Natijalar</h2>`+(D.rr.length?D.rr.map(r=>`<div class="row"><b>${esc(r.student_name||'Ismsiz')}</b> — ${r.score}/${r.total} <small>${fmt(r.created_at)}</small><br><small>Xato savollar: ${r.wrong.length?r.wrong.join(', '):"yo'q"}</small></div>`).join(''):"<small>Hali natija yo'q</small>")+`</div>`}
+function qsHtml(){return `<div class="c"><h2>O'quvchi savollari</h2>`+(D.qq.length?D.qq.map(q=>`<div class="row"><b>${esc(q.student_name||'Ismsiz')}</b> · ${esc(vt(q.video_id))} <small>${fmt(q.created_at)}</small><br>${esc(q.text)}<br><small>Aloqa: ${esc(q.contact||'-')}</small><br><button class="g" onclick="act(sb.from('questions').update({done:${!q.done}}).eq('id','${q.id}'))">${q.done?'✓ Javob berilgan':'Javob berildi'}</button><button class="r" onclick="act(sb.from('questions').delete().eq('id','${q.id}'))">O'chirish</button></div>`).join(''):"<small>Hali savol yo'q</small>")+`</div>`}
+/* ---------- O'QUVCHI HISOBI ---------- */
+const S=()=>{try{return JSON.parse(localStorage.getItem('stu'))}catch(e){return null}};
+const testRow=r=>{const wa=r.wrong.length;return `<div class="row"><b>${esc(r.t)}</b> <small>${esc(r.v||'')} · ${fmt(r.at)}</small><br><span class="ok">${r.score} to'g'ri</span> · <span class="no">${r.total-r.score} xato</span> <small>(${r.total} ta, ${r.total?Math.round(r.score*100/r.total):0}%)</small>${wa?'<br><small>Xato savollar:</small> '+r.wrong.map(x=>'<span class="wl">'+x+'</span>').join(''):''}</div>`};
+async function home(){const s=S(),el=document.getElementById('me');
+  if(!s){el.innerHTML=`<div class="c"><h2>O'quvchi kirishi</h2><input id="si" placeholder="ID raqam"><input id="sp" type="password" placeholder="Parol"><button onclick="slogin()">Kirish</button><p id="sm" class="no"></p></div>`+contactHtml(await getContacts());return}
+  const [res,ct,lb]=await Promise.all([sb.rpc('my_data',{p_sid:s.s,p_pin:s.p}),getContacts(),sb.rpc('my_library',{p_sid:s.s,p_pin:s.p})]);
+  const d=res.data;
+  if(res.error||!d){localStorage.removeItem('stu');home();return}
+  PD=d;if(!(d.tg&&d.phone&&d.pphone)){el.innerHTML=profForm(d,true);return}
+  const n=d.tests.length,avg=n?Math.round(d.tests.reduce((a,r)=>a+(r.total?r.score*100/r.total:0),0)/n):0;
+  el.innerHTML=`<div class="c"><h2>${avH(d.name,d.photo)}${esc(d.name)} <small>ID ${esc(s.s)}</small></h2><div class="st3"><div class="sx"><b>${n}</b><small>ishlangan test</small></div><div class="sx g1"><b>${avg}%</b><small>o'rtacha natija</small></div><div class="sx"><b>${d.videos.length}</b><small>ko'rgan video</small></div></div><button class="g" onclick="editProf()">✏️ Ma'lumotlarim</button><button class="g" onclick="localStorage.removeItem('stu');student()">Chiqish</button></div>`+libHtml(lb.error?null:(lb.data||[]))+contactHtml(ct)+`<div class="c"><h2>Testlarim</h2>${n?d.tests.map(testRow).join(''):"<small>Hali test ishlanmagan</small>"}</div><div class="c"><h2>Ko'rgan videolarim</h2>${d.videos.length?d.videos.map(x=>`<div class="row">${esc(x.v)} <small>${fmt(x.at)}</small></div>`).join(''):"<small>Hali video ko'rilmagan</small>"}</div>`}
+const pcol=p=>p>=80?'#1f8a4c':p>=50?'#d68910':'#c0392b';
+const avgBest=a=>{const t=a.filter(x=>x.has_test&&x.best!=null);return t.length?Math.round(t.reduce((s,x)=>s+Number(x.best),0)/t.length):null};
+function libHtml(L){if(!L)return '';
+  const ov=avgBest(L),nt=L.filter(x=>x.has_test&&x.best!=null).length,g={};
+  L.forEach(x=>{(g[x.folder]=g[x.folder]||[]).push(x)});
+  const row=x=>{const t=x.best!=null?`<div class="pb"><i style="width:${x.best}%;background:${pcol(x.best)}"></i></div><small>O'zlashtirish: <b>${x.best}%</b> · ${x.attempts} marta ishlangan</small>`:(x.has_test?'<small>Test hali ishlanmagan</small>':"<small>Bu mavzuda test yo'q</small>");
+    return `<div class="row"><b>${esc(x.title)}</b> <small>· ${x.views} marta ko'rilgan</small>${t}<br><button onclick="openV('${x.id}')">▶ Ko'rish</button></div>`};
+  return `<div class="c"><h2>📚 Videodarslar</h2>`+(ov!==null?`<p>Umumiy o'zlashtirish: <b style="color:${pcol(ov)}">${ov}%</b> <small>(${nt} ta mavzu bo'yicha eng yaxshi test natijalari o'rtachasi)</small></p><div class="pb"><i style="width:${ov}%;background:${pcol(ov)}"></i></div>`:"<small>Test ishlaganingizdan keyin o'zlashtirish foizi shu yerda chiqadi</small>")+
+  Object.keys(g).map(k=>{const a=g[k],fp=avgBest(a);return `<details style="margin-top:12px"><summary style="cursor:pointer;font-weight:600">${esc(k)} <small>(${a.length} ta video${fp!==null?' · '+fp+'%':''})</small></summary>${a.map(row).join('')}</details>`}).join('')+`</div>`}
+async function openV(id){const s=S();const {data,error}=await sb.rpc('open_video',{p_video:id,p_sid:s.s,p_pin:s.p});
+  if(error||!data||!data.length){alert("Videoni ochib bo'lmadi");return}
+  sessionStorage.setItem('cur',JSON.stringify({t:data[0].vtitle,y:data[0].vyid,i:data[0].vid,n:data[0].sname,f:1}));student();window.scrollTo(0,0)}
+let PD=null,PH=null;
+const avH=(n,ph,z)=>{const st=z?` style="width:${z}px;height:${z}px;font-size:${Math.round(z/2.6)}px;margin:0"`:'';return ph?`<img class="av" src="${esc(ph)}" alt=""${st}>`:`<span class="av"${st}>${esc((n||'?').trim().charAt(0).toUpperCase())}</span>`};
+const contH=s=>(s.tg||s.phone||s.pphone)?`<small>✈️ ${s.tg?`<a href="https://t.me/${esc(String(s.tg).replace('@',''))}" target="_blank">${esc(s.tg)}</a>`:'-'} · 📞 ${esc(s.phone||'-')} · 👪 Ota-ona: ${esc(s.pphone||'-')}</small>`:"<small>⚠️ Ma'lumot hali to'ldirilmagan</small>";
+function profForm(d,forced){PH=null;
+  return `<div class="c"><h2>${forced?"Ma'lumotlaringizni to'ldiring":"Mening ma'lumotlarim"}</h2>`+(forced?`<p><small>Videolarni ko'rish uchun quyidagi ma'lumotlar majburiy. Ular faqat ustozga ko'rinadi va kerak bo'lganda siz yoki ota-onangiz bilan bog'lanish uchun ishlatiladi.</small></p>`:'')+
+  `<div style="text-align:center"><span id="prfV">${avH(d.name,d.photo,84)}</span></div><small>Profil rasmi (ixtiyoriy)</small><input id="prfF" type="file" accept="image/*" onchange="pickPhoto(this)">
+  <input id="prfT" placeholder="Telegram username (masalan @ali123)" value="${esc(d.tg||'')}">
+  <input id="prfP" type="tel" placeholder="Sizning telefon raqamingiz (+998...)" value="${esc(d.phone||'')}">
+  <input id="prfQ" type="tel" placeholder="Ota yoki onangizning telefon raqami (+998...)" value="${esc(d.pphone||'')}">
+  <button onclick="saveProf()">Saqlash</button>${forced?`<button class="g" onclick="localStorage.removeItem('stu');student()">Chiqish</button>`:`<button class="g" onclick="home()">Bekor qilish</button>`}<p id="prfM" class="no"></p></div>`}
+function editProf(){document.getElementById('me').innerHTML=profForm(PD,false)}
+function pickPhoto(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{const im=new Image();
+    im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=128;const m=Math.min(im.width,im.height);
+      c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,128,128);
+      PH=c.toDataURL('image/jpeg',0.8);document.getElementById('prfV').innerHTML=avH(null,PH,84)};
+    im.onerror=()=>{document.getElementById('prfM').textContent="Rasm o'qilmadi, boshqa rasm tanlang"};
+    im.src=r.result};
+  r.readAsDataURL(f)}
+async function saveProf(){const s=S(),M=document.getElementById('prfM');
+  const tg=prfT.value.trim().replace(/^https?:\/\/t\.me\//i,'').replace(/^@/,''),ph=prfP.value.trim(),pp=prfQ.value.trim(),okp=v=>/^\+?[0-9 ()-]{9,20}$/.test(v);
+  if(!/^[A-Za-z0-9_]{5,32}$/.test(tg)){M.textContent="Telegram username noto'g'ri (masalan @ali123, kamida 5 belgi)";return}
+  if(!okp(ph)){M.textContent="O'zingizning telefon raqamingizni to'g'ri yozing";return}
+  if(!okp(pp)){M.textContent="Ota yoki onangizning telefon raqamini to'g'ri yozing";return}
+  M.textContent='';
+  const {error}=await sb.rpc('save_profile',{p_sid:s.s,p_pin:s.p,p_tg:'@'+tg,p_phone:ph,p_pphone:pp,p_photo:PH});
+  if(error){M.textContent='Xato: '+error.message;return}home()}
+async function slogin(){localStorage.setItem('stu',JSON.stringify({s:si.value.trim(),p:sp.value.trim()}));
+  const s=S(),{error}=await sb.rpc('my_data',{p_sid:s.s,p_pin:s.p});
+  if(error){localStorage.removeItem('stu');sm.textContent="ID yoki parol noto'g'ri";return}home()}
+let SO=null;
+function stuOne(id){SO=id;tab='stuone';render();window.scrollTo(0,0)}
+function stuOneHtml(){const s=D.ss.find(x=>x.id===SO);if(!s)return `<div class="c"><button class="g" onclick="tab='stu';render()">← O'quvchilarga qaytish</button></div>`;
+  const r=D.rr.filter(x=>x.student_id===s.id),l=D.l.filter(x=>x.student_id===s.id);
+  const avg=r.length?Math.round(r.reduce((a,x)=>a+(x.total?x.score*100/x.total:0),0)/r.length):0;
+  return `<div class="c"><button class="g" onclick="tab='stu';render()">← O'quvchilarga qaytish</button><h2 style="margin-top:14px">${avH(s.name,s.photo)}${esc(s.name)}</h2><p>ID: <b>${esc(s.sid)}</b> · Parol: <b>${esc(s.pin)}</b></p><p>${contH(s)}</p><div class="st3"><div class="sx"><b>${r.length}</b><small>ishlangan test</small></div><div class="sx g1"><b>${avg}%</b><small>o'rtacha natija</small></div><div class="sx"><b>${l.length}</b><small>ko'rgan video</small></div></div></div>
+  <div class="c"><h2>Testlari</h2>${r.length?r.map(x=>testRow({t:(D.te.find(t=>t.id===x.test_id)||{}).title||'Test',v:vt((D.te.find(t=>t.id===x.test_id)||{}).video_id),at:x.created_at,score:x.score,total:x.total,wrong:x.wrong||[]})).join(''):"<small>Hali test ishlamagan</small>"}</div>
+  <div class="c"><h2>Ko'rgan videolari</h2>${l.length?l.map(x=>`<div class="row">${esc(vt(x.video_id))} <small>${fmt(x.started_at)}</small></div>`).join(''):"<small>Hali video ko'rmagan</small>"}</div>`}
+function stuHtml(){const nx=D.ss.reduce((m,s)=>Math.max(m,parseInt(s.sid)||0),0)+1;
+  return `<div class="c"><h2>Yangi o'quvchi</h2><input id="ni" value="${nx}" placeholder="ID raqam"><input id="nn" placeholder="Ism familiya"><input id="np2" placeholder="Parol (bo'sh qolsa avtomatik)"><button onclick="addStu()">Qo'shish</button></div><div class="c"><h2>O'quvchilar (${D.ss.length})</h2>`+(D.ss.length?D.ss.map(s=>{const r=D.rr.filter(x=>x.student_id===s.id),l=D.l.filter(x=>x.student_id===s.id);
+    return `<div class="row">${avH(s.name,s.photo)}<b>${esc(s.name)}</b><br>ID: <b>${esc(s.sid)}</b> · Parol: <b>${esc(s.pin)}</b><br>${contH(s)}<br><small>Testlar: ${r.length} · Ko'rgan videolar: ${l.length}</small><br>${r.map(x=>`<small>${esc((D.te.find(t=>t.id===x.test_id)||{}).title||'')}: ${x.score}/${x.total}, xato: ${x.wrong.join(',')||'-'}</small>`).join('<br>')}<br><button onclick="stuOne('${s.id}')">📄 Sahifasi</button><button class="r" onclick="delStu('${s.id}')">O'chirish</button></div>`}).join(''):"<small>Hali o'quvchi yo'q</small>")+`</div>`}
+function addStu(){if(!ni.value.trim()||!nn.value.trim())return;act(sb.from('students').insert({sid:ni.value.trim(),name:nn.value.trim(),pin:np2.value.trim()||String(Math.floor(1000+Math.random()*9000))}))}
+function delStu(id){if(confirm("O'quvchi o'chirilsinmi?"))act(sb.from('students').delete().eq('id',id))}
+route();
+</script></body></html>

@@ -73,21 +73,22 @@ async function login(){
 }
 async function logout(){await sb.auth.signOut();admin()}
 async function load(){
-  const [f,v,c,l]=await Promise.all([
+  const [f,v,c,l,fl]=await Promise.all([
     sb.from('folders').select('*').order('created_at'),
     sb.from('videos').select('*').order('created_at'),
     sb.from('access_codes').select('*').order('created_at',{ascending:false}),
-    sb.from('views_log').select('*').order('started_at',{ascending:false})]);
-  D={f:f.data||[],v:v.data||[],c:c.data||[],l:l.data||[]};
+    sb.from('views_log').select('*').order('started_at',{ascending:false}),
+    sb.from('files').select('*').order('created_at',{ascending:false})]);
+  D={f:f.data||[],v:v.data||[],c:c.data||[],l:l.data||[],fl:fl.data||[]};
 }
 const vt=id=>(D.v.find(x=>x.id===id)||{}).title||'?';
 function render(){
-  const tabs=[['videos','Videolar'],['codes','Kodlar'],['stats','Statistika'],['acc','Hisob']];
+  const tabs=[['videos','Videolar'],['codes','Kodlar'],['files','Fayllar'],['stats','Statistika'],['acc','Hisob']];
   let h=`<h1>Ustoz kabineti</h1><div class="t">${tabs.map(t=>`<button class="${tab===t[0]?'':'g'}" onclick="tab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>`;
   if(tab==='videos'){
     h+=`<div class="c"><h2>Yangi papka</h2><input id="fn" placeholder="Papka nomi (masalan: Algebra 9-sinf)"><button onclick="addFolder()">Papka qo'shish</button></div>
-    <div class="c"><h2>Video qo'shish</h2><input id="vtt" placeholder="Video nomi"><input id="vl" placeholder="YouTube havolasi"><select id="vf"><option value="">Papkasiz</option>${D.f.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button onclick="addVideo()">Qo'shish</button></div>`;
-    const groups=[...D.f.map(f=>[f.id,f.name]),['','Papkasiz']];
+    <div class="c"><h2>Video qo'shish</h2><input id="vtt" placeholder="Video nomi"><input id="vl" placeholder="YouTube havolasi"><select id="vf"><option value="">Papkasiz</option>${D.f.filter(x=>x.type!=='file').map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button onclick="addVideo()">Qo'shish</button></div>`;
+    const groups=[...D.f.filter(f=>f.type!=='file').map(f=>[f.id,f.name]),['','Papkasiz']];
     groups.forEach(([fid,fname])=>{const vs=D.v.filter(v=>(v.folder_id||'')===fid);if(!vs.length&&!fid)return;
       h+=`<div class="c"><h2>📁 ${esc(fname)} ${fid?`<button class="r" style="padding:4px 10px;float:right;margin:0" onclick="delFolder('${fid}')">✕</button>`:''}</h2>`+
       (vs.length?vs.map(v=>`<div class="row"><b>${esc(v.title)}</b><br><button onclick="mkCode('${v.id}')">+ Kod</button><button class="g" onclick="repl('${v.id}')">Almashtirish</button><button class="r" onclick="delVideo('${v.id}')">O'chirish</button></div>`).join(''):'<small>Bo\'sh</small>')+`</div>`});
@@ -104,6 +105,14 @@ function render(){
     <div class="c"><h2>Parol o'zgartirish</h2><input id="np" type="password" placeholder="Yangi parol (8+ belgi)"><button onclick="upd({password:np.value})">Saqlash</button></div>
     <button class="r" onclick="logout()">Chiqish</button>`;
   }
+  if(tab==='files'){
+    const ff=D.f.filter(x=>x.type==='file');
+    h+=`<div class="c"><h2>Yangi fayl papkasi</h2><input id="ffn" placeholder="Papka nomi (masalan: Testlar 9-sinf)"><button onclick="addFFolder()">Papka qo'shish</button></div>
+    <div class="c"><h2>Fayl yuklash</h2><input id="ft" placeholder="Nomi (ixtiyoriy)"><select id="fk"><option value="file">Fayl</option><option value="test">Test</option></select><select id="ffo"><option value="">Papkasiz</option>${ff.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><input id="fi" type="file"><button onclick="upFile()">Yuklash</button><p id="fmsg"><small>Bitta fayl 50 MB gacha.</small></p></div>`;
+    [...ff.map(f=>[f.id,f.name]),['','Papkasiz']].forEach(([fid,fname])=>{const xs=D.fl.filter(x=>(x.folder_id||'')===fid);if(!xs.length&&!fid)return;
+      h+=`<div class="c"><h2>📁 ${esc(fname)} ${fid?`<button class="r" style="padding:4px 10px;float:right;margin:0" onclick="delFolder('${fid}')">✕</button>`:''}</h2>`+
+      (xs.length?xs.map(x=>`<div class="row"><b>${esc(x.title)}</b> <small>${x.kind==='test'?'Test':'Fayl'} · ${fmt(x.created_at)}</small><br><button onclick="openFile('${x.id}')">Ochish</button><button class="g" onclick="replFile('${x.id}')">Almashtirish</button><button class="r" onclick="delFile('${x.id}')">O'chirish</button></div>`).join(''):'<small>Bo\'sh</small>')+`</div>`});
+  }
   app.innerHTML=h+`<p><a href="#">Talaba sahifasi</a></p>`;
 }
 async function act(p){const {error}=await p;if(error)alert('Xato: '+error.message);await load();render()}
@@ -118,5 +127,24 @@ async function mkCode(vid){const n=prompt("O'quvchi ismi (ixtiyoriy):")??null;if
   if(error){alert('Xato: '+error.message);return}await load();tab='codes';render();alert('Kod: '+code)}
 function delCode(id){act(sb.from('access_codes').delete().eq('id',id))}
 async function upd(o){const {error}=await sb.auth.updateUser(o);alert(error?'Xato: '+error.message:'Saqlandi')}
+function addFFolder(){if(!ffn.value.trim())return;act(sb.from('folders').insert({name:ffn.value.trim(),type:'file'}))}
+const safe=n=>n.replace(/[^\w.\-]+/g,'_');
+async function upFile(){const f=fi.files[0];if(!f){alert('Fayl tanlang');return}
+  fmsg.textContent='Yuklanmoqda...';
+  const path=crypto.randomUUID()+'/'+safe(f.name);
+  const {error}=await sb.storage.from('files').upload(path,f);
+  if(error){fmsg.textContent='Xato: '+error.message;return}
+  await act(sb.from('files').insert({title:ft.value.trim()||f.name,file_url:path,kind:fk.value,folder_id:ffo.value||null}))}
+async function openFile(id){const x=D.fl.find(a=>a.id===id);const w=window.open('','_blank');
+  const {data,error}=await sb.storage.from('files').createSignedUrl(x.file_url,3600);
+  if(error){if(w)w.close();alert('Xato: '+error.message);return}
+  if(w)w.location=data.signedUrl;else location.href=data.signedUrl}
+function replFile(id){const x=D.fl.find(a=>a.id===id);const i=document.createElement('input');i.type='file';
+  i.onchange=async()=>{const f=i.files[0];if(!f)return;const path=crypto.randomUUID()+'/'+safe(f.name);
+    const u=await sb.storage.from('files').upload(path,f);if(u.error){alert('Xato: '+u.error.message);return}
+    await sb.storage.from('files').remove([x.file_url]);
+    act(sb.from('files').update({file_url:path}).eq('id',id))};i.click()}
+function delFile(id){const x=D.fl.find(a=>a.id===id);if(!confirm("Fayl o'chirilsinmi?"))return;
+  sb.storage.from('files').remove([x.file_url]).then(()=>act(sb.from('files').delete().eq('id',id)))}
 route();
 </script></body></html>

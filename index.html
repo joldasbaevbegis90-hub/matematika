@@ -10,8 +10,9 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,san
 h1{font-size:25px;font-weight:700;margin:8px 0 16px;color:var(--acc-d)}
 h2{font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)}
 .c{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 2px 10px #1f8a4c0d}
-input,select{width:100%;padding:13px 14px;margin:5px 0;border:1.5px solid var(--line);border-radius:12px;font-size:16px;background:#fbfefc;color:var(--text);outline:none;font-family:inherit}
-input:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 3px #1f8a4c20}
+input,select,textarea{width:100%;padding:13px 14px;margin:5px 0;border:1.5px solid var(--line);border-radius:12px;font-size:16px;background:#fbfefc;color:var(--text);outline:none;font-family:inherit}
+textarea{min-height:150px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px #1f8a4c20}
 button{background:var(--acc);color:#fff;border:0;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:600;margin:6px 6px 0 0;font-family:inherit;cursor:pointer}
 button:active{background:var(--acc-d)}
 button.g{background:var(--soft);color:var(--acc-d)}
@@ -88,6 +89,7 @@ function render(){
   if(tab==='videos'){
     h+=`<div class="c"><h2>Yangi papka</h2><input id="fn" placeholder="Papka nomi (masalan: Algebra 9-sinf)"><button onclick="addFolder()">Papka qo'shish</button></div>
     <div class="c"><h2>Video qo'shish</h2><input id="vtt" placeholder="Video nomi"><input id="vl" placeholder="YouTube havolasi"><select id="vf"><option value="">Papkasiz</option>${D.f.filter(x=>x.type!=='file').map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button onclick="addVideo()">Qo'shish</button></div>`;
+    h+=`<div class="c"><h2>Ko'p video qo'shish</h2><small>Har qatorga bitta: <b>havola</b> yoki <b>Nomi | havola</b>. Nom yozilmasa, YouTube'dan o'zi olinadi.</small><textarea id="bt" placeholder="https://youtu.be/xxxxxxxxxxx&#10;1-dars | https://youtu.be/yyyyyyyyyyy"></textarea><select id="bf"><option value="">Papkasiz</option>${D.f.filter(x=>x.type!=='file').map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button onclick="bulkAdd()">Hammasini qo'shish</button><p id="bmsg"><small></small></p></div>`;
     const groups=[...D.f.filter(f=>f.type!=='file').map(f=>[f.id,f.name]),['','Papkasiz']];
     groups.forEach(([fid,fname])=>{const vs=D.v.filter(v=>(v.folder_id||'')===fid);if(!vs.length&&!fid)return;
       h+=`<div class="c"><h2>📁 ${esc(fname)} ${fid?`<button class="r" style="padding:4px 10px;float:right;margin:0" onclick="delFolder('${fid}')">✕</button>`:''}</h2>`+
@@ -146,5 +148,21 @@ function replFile(id){const x=D.fl.find(a=>a.id===id);const i=document.createEle
     act(sb.from('files').update({file_url:path}).eq('id',id))};i.click()}
 function delFile(id){const x=D.fl.find(a=>a.id===id);if(!confirm("Fayl o'chirilsinmi?"))return;
   sb.storage.from('files').remove([x.file_url]).then(()=>act(sb.from('files').delete().eq('id',id)))}
+async function bulkAdd(){
+  const have=new Set(D.v.map(v=>v.youtube_id));const items=[];
+  for(const L of bt.value.split('\n').map(x=>x.trim()).filter(Boolean)){
+    let t='',u=L;const i=L.lastIndexOf('|');if(i>-1){t=L.slice(0,i).trim();u=L.slice(i+1).trim()}
+    const y=ytId(u);if(!y||have.has(y))continue;have.add(y);items.push({t,y})}
+  if(!items.length){alert("Yangi to'g'ri havola topilmadi");return}
+  let done=0;
+  for(let k=0;k<items.length;k+=10){
+    await Promise.all(items.slice(k,k+10).map(async it=>{
+      if(!it.t){try{const r=await fetch('https://noembed.com/embed?url='+encodeURIComponent('https://www.youtube.com/watch?v='+it.y));it.t=(await r.json()).title||''}catch(e){}}
+      done++;bmsg.textContent='Nomlar olinmoqda: '+done+'/'+items.length}))}
+  const base=D.v.length;
+  const rows=items.map((it,n)=>({title:it.t||('Video '+(base+n+1)),youtube_id:it.y,folder_id:bf.value||null,sort_order:base+n+1}));
+  const {error}=await sb.from('videos').insert(rows);
+  if(error){alert('Xato: '+error.message);return}
+  await load();render();alert(rows.length+" ta video qo'shildi")}
 route();
 </script></body></html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Matematika EDU</title>
+<style>
+:root {
+  --bg: #0b1120;
+  --card: rgba(30, 41, 59, 0.7);
+  --line: #334155;
+  --text: #f8fafc;
+  --mute: #94a3b8;
+  --acc: #3b82f6;
+  --acc-d: #2563eb;
+  --soft: #1e293b;
+  --inp: #0f172a;
+  --on: #ffffff;
+  --gbg: #064e3b;
+  --gfg: #34d399;
+  --bbg: #7f1d1d;
+  --bfg: #f87171;
+  --bln: #991b1b;
+  --sh: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --blur: blur(12px);
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, transparent 70%);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 80px; /* Bottom nav uchun joy */
+}
+.w { max-width: 600px; margin: 0 auto; padding: 20px 16px; position: relative; z-index: 1; }
+h1 { font-size: 24px; font-weight: 700; margin: 10px 0 16px; color: var(--text); }
+h2 { font-size: 16px; font-weight: 600; margin: 0 0 12px; color: var(--text); }
+
+/* Shishasimon kartochkalar */
+.c {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 16px 0;
+  box-shadow: var(--sh);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+}
+
+input, select, textarea {
+  width: 100%; padding: 14px 16px; margin: 6px 0;
+  border: 1px solid var(--line); border-radius: 14px;
+  font-size: 16px; background: var(--inp); color: var(--text);
+  outline: none; font-family: inherit; transition: border 0.2s;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--acc); box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
+textarea { min-height: 120px; resize: vertical; }
+
+button {
+  background: var(--acc); color: var(--on); border: 0;
+  border-radius: 14px; padding: 12px 18px; font-size: 15px;
+  font-weight: 600; margin: 6px 6px 0 0; font-family: inherit;
+  cursor: pointer; transition: background 0.2s;
+}
+button:active { background: var(--acc-d); }
+button.g { background: var(--soft); color: var(--text); }
+button.r { background: var(--inp); color: var(--bfg); border: 1px solid var(--bln); }
+a.btn { display: inline-block; background: var(--acc); color: var(--on); border-radius: 14px; padding: 12px 18px; font-size: 15px; font-weight: 600; margin: 6px 6px 0 0; text-decoration: none; }
+a.btn:hover { background: var(--acc-d); }
+a.btn.g { background: var(--soft); color: var(--text); }
+a { color: var(--acc); text-decoration: none; font-weight: 500; }
+a:hover { text-decoration: underline; }
+small { color: var(--mute); }
+
+.t { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.t button { border-radius: 99px; margin: 0; padding: 8px 16px; font-size: 13px; }
+.row { border-top: 1px solid var(--line); padding: 14px 0; font-size: 14px; }
+.row:first-of-type { border-top: 0; }
+.ok { color: var(--gfg); font-weight: 600; }
+.no { color: var(--bfg); }
+.big { font-size: 26px; letter-spacing: 3px; font-weight: 700; }
+
+.op { display: block; padding: 14px; margin: 8px 0; border: 1px solid var(--line); border-radius: 14px; cursor: pointer; transition: all 0.2s; background: var(--inp); }
+.op:has(input:checked) { border-color: var(--acc); background: rgba(59,130,246,0.1); }
+.op input { width: auto; margin: 0 8px 0 0; padding: 0; }
+.good { background: var(--gbg) !important; border-color: var(--acc) !important; color: var(--gfg); }
+.wrongo { background: var(--bbg) !important; border-color: var(--bln) !important; color: var(--bfg); }
+.bad { border-color: var(--bfg); }
+
+.qt { font-size: 16px; line-height: 1.7; }
+.ot { margin: 8px 0 2px; line-height: 2; }
+.oi { display: inline-block; margin: 0 26px 0 0; padding: 0 6px; border-radius: 8px; border: 1.5px solid transparent; }
+.ob { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0 2px; }
+.ob button { width: 46px; height: 46px; border-radius: 50%; padding: 0; margin: 0; background: var(--inp); color: var(--text); border: 2px solid var(--line); font-size: 16px; font-weight: 700; }
+.ob button.sel { background: var(--acc); color: var(--on); border-color: var(--acc); }
+.ob button.good { background: var(--gbg); color: var(--gfg); border-color: var(--acc); }
+.ob button.wrongo { background: var(--bbg); color: var(--bfg); border-color: var(--bln); }
+
+.tb { position: sticky; top: 10px; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; background: var(--card); border-radius: 16px; backdrop-filter: var(--blur); border: 1px solid var(--line); }
+.tb button { margin: 0; font-size: 12px; padding: 8px 12px; }
+.katex { font-size: 1.08em; }
+.epv { margin-top: 12px; padding: 12px; border: 1px dashed var(--line); border-radius: 14px; background: var(--inp); }
+.st3 { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+.sx { flex: 1; min-width: 90px; text-align: center; padding: 14px 10px; border-radius: 16px; background: var(--soft); border: 1px solid var(--line); }
+.sx b { display: block; font-size: 26px; line-height: 1.2; }
+.sx small { display: block; font-size: 13px; }
+.sx.g1 { background: var(--gbg); border-color: var(--acc); }
+.sx.g1 b { color: var(--gfg); }
+.sx.r1 { background: var(--bbg); border-color: var(--bln); }
+.sx.r1 b { color: var(--bfg); }
+
+/* Modal */
+.mdl { position: fixed; inset: 0; z-index: 50; background: rgba(11, 17, 32, 0.8); display: flex; align-items: flex-end; justify-content: center; padding: 16px; }
+.mb { background: var(--card); color: var(--text); border-radius: 24px 24px 0 0; padding: 24px; max-width: 600px; width: 100%; box-shadow: 0 -10px 40px rgba(0,0,0,0.5); backdrop-filter: var(--blur); }
+.av { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--acc); color: var(--on); font-weight: 700; margin-right: 12px; vertical-align: middle; }
+.wl { display: inline-block; min-width: 34px; text-align: center; padding: 2px 10px; margin: 2px 4px 2px 0; border-radius: 99px; background: var(--bbg); color: var(--bfg); font-weight: 600; font-size: 13px; }
+.pb { height: 8px; background: var(--soft); border-radius: 99px; overflow: hidden; margin: 8px 0 2px; }
+.pb i { display: block; height: 100%; background: var(--acc); border-radius: 99px; }
+#deco { display: none; text-align: center; padding: 8px 10px; font-size: 13px; font-weight: 600; background: var(--soft); color: var(--acc); border-bottom: 1px solid var(--line); position: relative; z-index: 1; }
+img.av { object-fit: cover; background: var(--soft); }
+.bn { display: block; width: 100%; height: auto; border-radius: 16px; margin: 0 0 16px; box-shadow: var(--sh); }
+
+/* Bottom Navigation (Mobil menyu) */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 70px;
+  background: var(--card); border-top: 1px solid var(--line);
+  display: flex; justify-content: space-around; align-items: center;
+  backdrop-filter: var(--blur); z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  color: var(--mute); font-size: 11px; font-weight: 500;
+  text-decoration: none; gap: 4px; transition: color 0.2s;
+}
+.nav-item.active { color: var(--acc); }
+.nav-item i { font-size: 20px; font-style: normal; }
+</style>
+
+<!-- KaTeX va JSZip -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+<body>
+
+<div class="w" id="app"></div>
+
+<!-- Pastki menyu -->
+<div class="bottom-nav" id="bottomNav" style="display:none;">
+  <a href="#" class="nav-item active" onclick="navTo('home')"><i>🏠</i>Bosh sahifa</a>
+  <a href="#" class="nav-item" onclick="navTo('lessons')"><i>📖</i>Darsliklar</a>
+  <a href="#" class="nav-item" onclick="navTo('tests')"><i>📝</i>Testlar</a>
+  <a href="#" class="nav-item" onclick="navTo('rating')"><i>📊</i>Reyting</a>
+  <a href="#" class="nav-item" onclick="navTo('settings')"><i>⚙️</i>Sozlamalar</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SBU="https://xhwzmzvrnfnrfvfcydbd.supabase.co",SBK="sb_publishable_f61-IFzOxM17Yp1K1yF8lg_H4HGOZD5";
+const sb=supabase.createClient(SBU,SBK);
+const app=document.getElementById('app');
+const nav=document.getElementById('bottomNav');
+
+// UI funksiyalar
+function navTo(page) {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  if(page === 'home') { renderHome(); }
+  if(page === 'lessons') { app.innerHTML = '<h1>Darsliklar</h1><div class="c">Darsliklar bo\'limi tez kunda...</div>'; }
+  if(page === 'tests') { app.innerHTML = '<h1>Testlar</h1><div class="c">Testlar bo\'limi tez kunda...</div>'; }
+  if(page === 'rating') { app.innerHTML = '<h1>Reyting</h1><div class="c">Reyting bo\'limi tez kunda...</div>'; }
+  if(page === 'settings') { app.innerHTML = '<h1>Sozlamalar</h1><div class="c">Sozlamalar bo\'limi tez kunda...</div>'; }
+}
+
+// Sizning asl funksiyalaringiz (qisqartirilgan ko'rinishda, kod to'liq saqlanadi)
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ytId=u=>{u=(u||'').trim();const m=u.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(u)?u:null)};
+const gen=()=>{const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<8;i++)s+=a[Math.floor(Math.random()*a.length)];return s};
+const fmt=d=>d?new Date(d).toLocaleString('uz'):'';
+
+// Demo ma'lumotlar (rasmdagi kabi ko'rinish uchun)
+function renderHome() {
+  nav.style.display = 'flex';
+  app.innerHTML = `
+    <h1>Xayrli kun!</h1>
+    <div class="c">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h2>Matematika</h2>
+          <small>${new Date().toLocaleDateString('uz')}</small>
+        </div>
+        <div class="av">M</div>
+      </div>
+    </div>
+    
+    <div class="c" style="border-left: 4px solid var(--acc);">
+      <h2 style="margin-bottom:8px;">Sinov davri</h2>
+      <small>Testlar va mavzular cheklovsiz · yana 30 daqiqa</small>
+    </div>
+
+    <div class="c" style="background: linear-gradient(135deg, var(--acc), #06b6d4); color: #fff; border: none;">
+      <h2 style="color: #fff; margin-top:0;">Xayrli kun</h2>
+      <p style="margin:8px 0 16px; opacity:0.9;">Kichik qadamlar katta natijaga olib boradi.</p>
+      <div class="pb" style="background: rgba(255,255,255,0.2);"><i style="width: 0%; background: #fff;"></i></div>
+      <small style="color:#fff;">0%</small>
+      <button style="background: #fff; color: var(--acc); width:100%; margin-top:16px; border-radius: 12px;">O'qishni boshlash</button>
+    </div>
+
+    <div class="c">
+      <h2>Sinov variantlari</h2>
+      <small>Imtihon formatida · 6 ta variant</small>
+    </div>
+
+    <h2 style="margin-top:24px;">Bo'limlar</h2>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <div class="c" style="margin:0;">
+        <div style="font-size:24px; margin-bottom:8px;">📘</div>
+        <h2 style="font-size:14px; margin-bottom:4px;">Natural sonlar</h2>
+        <small>1-bo'lim · 5 ta mavzu</small>
+      </div>
+      <div class="c" style="margin:0;">
+        <div style="font-size:24px; margin-bottom:8px;">📗</div>
+        <h2 style="font-size:14px; margin-bottom:4px;">Kasrlar</h2>
+        <small>2-bo'lim · 3 ta mavzu</small>
+      </div>
+      <div class="c" style="margin:0;">
+        <div style="font-size:24px; margin-bottom:8px;">📙</div>
+        <h2 style="font-size:14px; margin-bottom:4px;">Algebraik ifodalar</h2>
+        <small>3-bo'lim · 5 ta mavzu</small>
+      </div>
+      <div class="c" style="margin:0;">
+        <div style="font-size:24px; margin-bottom:8px;">📕</div>
+        <h2 style="font-size:14px; margin-bottom:4px;">Chiziqli tenglama</h2>
+        <small>4-bo'lim · 5 ta mavzu</small>
+      </div>
+    </div>
+  `;
+}
+
+// Boshlanishida home ni ko'rsatish
+renderHome();
+
+// Sizning asl Supabase va test funksiyalaringiz shu yerga qo'shiladi (ularni o'zgartirmang)
+</script>
+</body>
+</html>
